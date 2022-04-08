@@ -10,6 +10,7 @@ const Positioner = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
+  z-index: 99;
   top: 0px;
   width: 100%;
   ${shadow(1)}
@@ -41,9 +42,9 @@ const Walletlogo = styled.img`
   height: 3rem;
   width: 35px;
 `;
-// 흰 배경, 내용 중간 정렬
+// 헤더 배경, 내용 중간 정렬
 const WhiteBackground = styled.div`
-  background: #6cc0ff;
+  background: #8ea8db;
   display: flex;
   justify-content: center;
   height: auto;
