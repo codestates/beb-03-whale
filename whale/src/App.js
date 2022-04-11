@@ -1,6 +1,7 @@
 import Header from "./Component/header";
 import Main from "./Page/Main";
 import MyPage from "./Page/MyPage";
+import Mint from "./Page/Mint";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 // 유의 사항
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Main />}></Route>
           <Route path="/mypage" element={<MyPage />}></Route>
+          <Route path="/mint" element={<Mint />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

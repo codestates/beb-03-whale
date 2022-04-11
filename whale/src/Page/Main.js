@@ -16,6 +16,7 @@ const Backwhale = styled.img`
   width: 80%;
   height: 100%;
   opacity: 0.8;
+  z-index: 0;
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 5%, transparent 100%);
 `;
 const Intro1 = styled.div`
@@ -61,6 +62,7 @@ function Main() {
             height: 500,
             display: "flex",
             justifyContent: "space-between",
+            zIndex: "0",
             position: "fixed",
             top: "25%",
             left: "62%",

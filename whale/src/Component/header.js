@@ -132,7 +132,9 @@ const Header = ({ children }) => {
 
           <Input type="text" placeholder="Search items, collections" />
           <Explore>Explore</Explore>
-          <Create>Create</Create>
+          <NavLink to="/mint">
+            <Create>Create</Create>
+          </NavLink>
           <NavLink to="/mypage">
             <UserLogo src={userImg} />
           </NavLink>
