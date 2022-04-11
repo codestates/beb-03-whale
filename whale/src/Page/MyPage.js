@@ -43,17 +43,17 @@ function MyPage() {
             width: "100%",
             height: "100%",
             background: "white",
-            overflow: "auto",
+            overflow: "scroll",
           }}
         >
           <Box
             sx={{
               flexGrow: 1,
-              position: "fixed",
+              position: "absolute",
               width: "80%",
-              height: "100%",
+              height: "120%",
               justifyContent: "center",
-              top: "35%",
+              top: "10%",
               right: "10%",
               left: "10%",
             }}
