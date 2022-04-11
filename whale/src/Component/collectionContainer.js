@@ -25,12 +25,16 @@ const CollectionContainer = () => {
         },
       }}
     >
+<<<<<<< HEAD
+      <CardMedia component="img" height="350" image={HappyKongz} alt="happy kongz" />
+=======
       <CardMedia
         component="img"
         height="350"
         image={HappyKongz}
         alt="happy kongz"
       />
+>>>>>>> 8e17f89c26db7c402d7b7e69d6a1e7aee7768c14
       <Typography variant="h4">Happy Kongz</Typography>
       <Typography variant="body1">This is sample </Typography>
     </Box>
