@@ -4,6 +4,7 @@ import whaleImg from "../icons/whale.png";
 import userImg from "../icons/user.png";
 import walletImg from "../icons/wallet.png";
 import { shadow, media } from "../lib/styleUtils";
+import { NavLink } from "react-router-dom";
 
 // 상단 고정, 그림자
 const Positioner = styled.div`
@@ -124,12 +125,20 @@ const Header = ({ children }) => {
     <Positioner>
       <WhiteBackground>
         <HeaderContents>
-          <WhaleLogo src={whaleImg} />
-          <Logo>WHALE</Logo>
+          <NavLink to="/">
+            <WhaleLogo src={whaleImg} />
+            <Logo>WHALE</Logo>
+          </NavLink>
+
           <Input type="text" placeholder="Search items, collections" />
           <Explore>Explore</Explore>
-          <Create>Create</Create>
-          <UserLogo src={userImg} />
+          <NavLink to="/mint">
+            <Create>Create</Create>
+          </NavLink>
+          <NavLink to="/mypage">
+            <UserLogo src={userImg} />
+          </NavLink>
+
           <Walletlogo src={walletImg} />
           <Spacer />
           {children}
