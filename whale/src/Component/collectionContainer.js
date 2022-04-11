@@ -13,14 +13,9 @@ const CollectionContainer = () => {
       onClick={clickEvent}
       sx={{
         boxShadow: "0 5px 10px 1px lightgray",
-        width: 400,
-        height: 500,
         backgroundColor: "white",
         textAlign: "center",
         borderRadius: "10%",
-        position: "fixed",
-        left: "68%",
-        top: "25%",
         "&:hover": {
           backgroundColor: "primary.main",
           opacity: [0.9, 0.8, 0.7],
