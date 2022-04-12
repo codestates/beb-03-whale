@@ -35,7 +35,7 @@ function Explore() {
               <Item
                 imgURL={item.img}
                 name={item.itemname}
-                id={item.id}
+                key={item.id}
                 link="/"
                 isLoading={false}
                 price={item.price}
