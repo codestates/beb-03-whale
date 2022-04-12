@@ -14,7 +14,7 @@ contract WhaleNFT is ERC721URIStorage, Ownable {
     constructor() public ERC721("WhaleNFT", "WNFT") {}
 
     function mintNFT(address recipient, string memory tokenURI)
-        public onlyOwner
+        public
         returns (uint256)
     {
         _tokenIds.increment();
