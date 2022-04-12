@@ -1,4 +1,4 @@
-import EtherLogo from "../images/Ethereum_logo.png";
+// import EtherLogo from "../images/Ethereum_logo.png";
 
 const dummyItems = [
   {

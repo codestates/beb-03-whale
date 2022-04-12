@@ -5,6 +5,8 @@ import userImg from "../icons/user.png";
 import walletImg from "../icons/wallet.png";
 import { shadow, media } from "../lib/styleUtils";
 import { NavLink } from "react-router-dom";
+import { injected } from "./connector";
+import { useWeb3React } from "@web3-react/core";
 
 // 상단 고정, 그림자
 const Positioner = styled.div`
@@ -121,6 +123,17 @@ const Input = styled.input`
 `;
 
 const Header = ({ children }) => {
+  // const { active, account, library, connector, activate, deactivate } =
+  //   useWeb3React();
+  const { activate } = useWeb3React();
+
+  async function connect() {
+    try {
+      await activate(injected);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   return (
     <Positioner>
       <WhiteBackground>
@@ -140,7 +153,7 @@ const Header = ({ children }) => {
             <UserLogo src={userImg} />
           </NavLink>
 
-          <Walletlogo src={walletImg} />
+          <Walletlogo onClick={connect} src={walletImg} />
           <Spacer />
           {children}
         </HeaderContents>
