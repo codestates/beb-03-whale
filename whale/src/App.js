@@ -3,6 +3,7 @@ import Main from "./Page/Main";
 import MyPage from "./Page/MyPage";
 import Mint from "./Page/Mint";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Explore from "./Page/Explore";
 
 // 유의 사항
 // Header 컴포넌트의 z-index를 최 상단으로 유지하기 위해 99로 등록해두었습니다.
@@ -10,14 +11,14 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRoute>
         <Header />
         <Routes>
           <Route exact path="/" element={<Main />}></Route>
           <Route path="/mypage" element={<MyPage />}></Route>
           <Route path="/mint" element={<Mint />}></Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRoute>
     </div>
   );
 }
