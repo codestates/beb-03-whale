@@ -2,7 +2,6 @@ import Header from "./Component/header";
 import Main from "./Page/Main";
 import MyPage from "./Page/MyPage";
 import Mint from "./Page/Mint";
-import Explore from "./Page/Explore";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Explore from "./Page/Explore";
 
@@ -12,15 +11,15 @@ import Explore from "./Page/Explore";
 function App() {
   return (
     <div className="App">
-      <BrowserRoute>
+      <BrowserRouter>
         <Header />
         <Routes>
           <Route exact path="/" element={<Main />}></Route>
           <Route path="/mypage" element={<MyPage />}></Route>
-          <Route path="/explore" elemnet={<Explore />}></Route>
           <Route path="/mint" element={<Mint />}></Route>
+          <Route path="/explore" element={<Explore />}></Route>
         </Routes>
-      </BrowserRoute>
+      </BrowserRouter>
     </div>
   );
 }
