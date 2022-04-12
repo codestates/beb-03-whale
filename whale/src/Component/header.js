@@ -129,9 +129,10 @@ const Header = ({ children }) => {
             <WhaleLogo src={whaleImg} />
             <Logo>WHALE</Logo>
           </NavLink>
-
           <Input type="text" placeholder="Search items, collections" />
-          <Explore>Explore</Explore>
+          <NavLink to="/explore">
+            <Explore>Explore</Explore>
+          </NavLink>
           <NavLink to="/mint">
             <Create>Create</Create>
           </NavLink>

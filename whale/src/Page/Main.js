@@ -1,4 +1,3 @@
-// import Header from "../Component/header";
 import styled from "styled-components";
 import MoonWhale from "../images/moon-whale.jpg";
 import Box from "@material-ui/core/Box";

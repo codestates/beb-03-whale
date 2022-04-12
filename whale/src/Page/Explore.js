@@ -32,10 +32,23 @@ function Explore() {
         {dummyItems &&
           dummyItems.map((item) => {
             return (
-              <Item imgURL={item.img} name={item.itemname} id={item.id} link="/" isLoading={false} price={item.price} />
+              <Item
+                imgURL={item.img}
+                name={item.itemname}
+                id={item.id}
+                link="/"
+                isLoading={false}
+                price={item.price}
+              />
             );
           })}
-        <Item imgURL="" name="Img test" price="0.221" link="/" isLoading={true} />
+        <Item
+          imgURL=""
+          name="Img test"
+          price="0.221"
+          link="/"
+          isLoading={true}
+        />
         <Item imgURL="" name="Img test" price="0.1" link="/" isLoading={true} />
         <Item imgURL="" name="Img test" price="0.1" link="/" isLoading={true} />
         <Item imgURL="" name="Img test" price="0.1" link="/" isLoading={true} />
