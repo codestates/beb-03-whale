@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Item from "../Component/Item.js";
 import { dummyItems } from "../static/dummyData";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const ViewItems = styled.div`
   margin-top: 5%;
@@ -28,6 +29,7 @@ function Explore() {
   return (
     <ViewItems>
       <ItemCount> 300 Items</ItemCount>
+
       <ItemContainer>
         {dummyItems &&
           dummyItems.map((item) => {
@@ -35,7 +37,7 @@ function Explore() {
               <Item
                 imgURL={item.img}
                 name={item.itemname}
-                id={item.id}
+                key={item.id}
                 link="/"
                 isLoading={false}
                 price={item.price}
