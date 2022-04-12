@@ -65,6 +65,9 @@ contract TransferWhaleNFT is Ownable {
 
     // 판매등록: price 단위는 wei = ether * 10^18
     function createRoom (address _nftContract, uint256 _tokenId, uint256 _price) public payable returns (uint roomNum) {
+        // approve 되었는지 확인
+        require (ERC721(_nftContract).getApproved(_tokenId) == address(this), "TransferWhaleNFT: token is not approved");
+
         rooms[roomLen] = TradeRoom({
             nftProduct: NFTProduct({
                 contractAddr: _nftContract,
@@ -83,8 +86,8 @@ contract TransferWhaleNFT is Ownable {
         //     abi.encodeWithSignature("approve(address, uint256)", _ownerAddr, _tokenId)
         // );
 
-        // approve 되었는지 확인
-        require (ERC721(_nftContract).getApproved(_tokenId) == address(this), "TransferWhaleNFT: token is not approved");
+        
+       
     }
 
     function Test (address _nftContract) public returns (address sender) {
@@ -107,8 +110,9 @@ contract TransferWhaleNFT is Ownable {
         // 구매자에게 nft양도
         IERC721(_nftContract).transferFrom(address(this), msg.sender, tokenId);
 
+        // idToMarketItem[itemId].owner = payable(msg.sender);
         rooms[_roomNumber].tradeStatus = TradeStatus.STATUS_COMPLETE;
-        
+        // _itemsSold.increment();
         // 수수료?
         // payable(owner).transfer(listingPrice);
     }
