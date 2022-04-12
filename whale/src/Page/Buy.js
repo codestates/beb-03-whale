@@ -125,7 +125,7 @@ function Sell() {
                 </Typography>
               </Box>
             </Box>
-            <Button variant="contained">Buy</Button>
+            <Button variant="contained">Buy Now</Button>
           </Box>
           <Typography variant="h6" align="center">
             This is just sample.<br></br>

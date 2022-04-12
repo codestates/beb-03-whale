@@ -3,6 +3,7 @@ import { styled } from "@material-ui/core/styles";
 import Button from "@mui/material/Button";
 import EthereumLogo from "../images/Ethereum_logo.png";
 import HappyKongz from "../images/HappyKongz.png";
+import TextField from "@mui/material/TextField";
 
 const SellContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -103,6 +104,8 @@ function Sell() {
                   alignItems: "center",
                   width: "27px",
                   height: "40px",
+                  padding: "1%",
+                  margin: "1%",
                   "& .Eth": {
                     width: "100%",
                     height: "100%",
@@ -120,9 +123,11 @@ function Sell() {
                   alignItems: "center",
                 }}
               >
-                <Typography variant="h4" align="center">
-                  0.01
-                </Typography>
+                <TextField
+                  id="standard-basic"
+                  label="Price"
+                  variant="standard"
+                />
               </Box>
             </Box>
             <Button variant="contained">Sell</Button>
