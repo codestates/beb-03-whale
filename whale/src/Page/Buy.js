@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import EthereumLogo from "../images/Ethereum_logo.png";
 import HappyKongz from "../images/HappyKongz.png";
 
-const SellContainer = styled(Paper)(({ theme }) => ({
+const BuyContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
   display: "flex",
   flexDirection: "column",
@@ -18,9 +18,9 @@ const SellContainer = styled(Paper)(({ theme }) => ({
 
 function Sell() {
   return (
-    <SellContainer>
+    <BuyContainer>
       <Box>
-        <Typography variant="h5">Sell</Typography>
+        <Typography variant="h5">Buy</Typography>
       </Box>
       <Box
         sx={{
@@ -125,7 +125,7 @@ function Sell() {
                 </Typography>
               </Box>
             </Box>
-            <Button variant="contained">Sell</Button>
+            <Button variant="contained">Buy</Button>
           </Box>
           <Typography variant="h6" align="center">
             This is just sample.<br></br>
@@ -137,7 +137,7 @@ function Sell() {
           </Typography>
         </Box>
       </Box>
-    </SellContainer>
+    </BuyContainer>
   );
 }
 
