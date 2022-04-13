@@ -3,6 +3,13 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { styled } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useState } from "react";
+// import { NFTStorage, File } from "nft.storage";
+// import mime from "mime";
+// import fs from "fs";
+// import path from "path";
+// const NFT_STORAGE_KEY =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEMyMEIwNEZmRDhBZjBEN2JhQTE2YzUyYTY3ZTlkQzFjM0RDMTBCMDgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY0OTgxNDgzNjQ4MCwibmFtZSI6IldoYWxlIn0.LyOkwlsuhGW6_e4SZz62fS4-E9KCxHmFxGL1MPer_JM";
 
 const MintContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -17,6 +24,16 @@ const MintContainer = styled(Paper)(({ theme }) => ({
 }));
 
 function Mint() {
+  const [photo, setPhoto] = useState(null);
+  // async function storeNFT(imagePath, name, description) {
+  //   const image = await fileFromPath(imagePath);
+  //   const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY });
+  //   return nftstorage.store({
+  //     image,
+  //     name,
+  //     description,
+  //   });
+  // }
   return (
     <MintContainer>
       <Box>
@@ -48,7 +65,8 @@ function Mint() {
             },
           }}
         >
-          <PhotoCamera color="white" />
+          <input type="file" name="file" onChange={null} />
+          {/* <PhotoCamera color="white" onClick={null} /> */}
         </Box>
         {/* Text input area */}
         <Box
