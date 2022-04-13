@@ -1,23 +1,204 @@
-https://ropsten.etherscan.io/address/0x59cfb8dd20e63185581215bb87fda9a1bac3f044
+# Whale Smart Contracts
 
-https://rinkeby.etherscan.io/address/0x166a8eaa74bb5cdf45cc1982a5ded90323445027
+---
 
-아무나 민팅 가능
-https://ropsten.etherscan.io/address/0xf24639442f86ba24706f90c8dc8b382d6d8e8e6c
+다음 두개의 contract를 ropsten testnet을 통해 배포중입니다.
 
-createRoom을 통해 판매등록(owner addr로 approve)
-https://ropsten.etherscan.io/address/0x6d842606f7db5557d2875e648fe6383e785472a4
+| WhaleNFT         | ERC721을 상속받아 자체적으로 민팅할 수 있는 NFT컨트랙트 (WhaleNFT, WNFT) |
+| ---------------- | ------------------------------------------------------------------------ |
+| TransferWhaleNFT | ERC721기반 NFT들을 거래할 수 있는 컨트랙트                               |
 
-TransferWhaleNFT (테스트중)
-https://ropsten.etherscan.io/address/0x7fbd55b82f96ff934d5c5f360e3f4423ab1d3d55
+---
 
-/-
-현재 배포중인 컨트랙트
+## WhaleNFT
 
-TransferWhaleNFT 1.0.1
-https://ropsten.etherscan.io/address/0xce82f91dbc157f2f1bdc467c1bafe97aafc1f85c
+- 기존 ERC721 컨트랙트에 mintNFT와 mintNFTMyself를 추가한 컨트랙트
+- 소스코드
+  ```solidity
+  // SPDX-License-Identifier: MIT
+  pragma solidity ^0.8.7;
 
-WhlaeNFT 1.0.1 (mintNFTMyself 추가)
-https://ropsten.etherscan.io/address/0x9fc8ae86546363821ee4908ee9a309a9484062d5
+  import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+  import "@openzeppelin/contracts/utils/Counters.sol";
+  import "@openzeppelin/contracts/access/Ownable.sol";
+  import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-개선할점: 판매 등록 취소
+  contract WhaleNFT is ERC721URIStorage, Ownable {
+      using Counters for Counters.Counter;
+      Counters.Counter private _tokenIds;
+
+      constructor() public ERC721("WhaleNFT", "WNFT") {}
+
+      function mintNFT(address recipient, string memory tokenURI)
+          public
+          returns (uint256)
+      {
+          _tokenIds.increment();
+
+          uint256 newItemId = _tokenIds.current();
+          _mint(recipient, newItemId);
+          _setTokenURI(newItemId, tokenURI);
+
+          return newItemId;
+      }
+
+      function mintNFTMyself(string memory tokenURI)
+          public
+          returns (uint256)
+      {
+          _tokenIds.increment();
+
+          uint256 newItemId = _tokenIds.current();
+          _mint(msg.sender, newItemId);
+          _setTokenURI(newItemId, tokenURI);
+
+          return newItemId;
+      }
+  }
+  ```
+
+## TransferWhaleNFT
+
+- Whale 프로젝트에 사용할 거래 컨트랙트
+
+먼저 계약주소(현재는 0xCe82f91dbC157F2f1bDC467c1BAfe97aAfc1F85c)로 클라이언트가 approve를 한 후 판매 등록이 가능합니다.
+
+- 소스코드
+  ```solidity
+  // SPDX-License-Identifier: MIT
+  pragma solidity ^0.8.7;
+
+  import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+  import "@openzeppelin/contracts/utils/Counters.sol";
+  import "@openzeppelin/contracts/access/Ownable.sol";
+  import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+
+  contract WhaleNFT is ERC721URIStorage, Ownable {
+      using Counters for Counters.Counter;
+      Counters.Counter private _tokenIds;
+
+      constructor() public ERC721("WhaleNFT", "WNFT") {}
+
+      function mintNFT(address recipient, string memory tokenURI)
+          public
+          returns (uint256)
+      {
+          _tokenIds.increment();
+
+          uint256 newItemId = _tokenIds.current();
+          _mint(recipient, newItemId);
+          _setTokenURI(newItemId, tokenURI);
+
+          return newItemId;
+      }
+
+      function mintNFTMyself(string memory tokenURI)
+          public
+          returns (uint256)
+      {
+          _tokenIds.increment();
+
+          uint256 newItemId = _tokenIds.current();
+          _mint(msg.sender, newItemId);
+          _setTokenURI(newItemId, tokenURI);
+
+          return newItemId;
+      }
+  }
+
+  // contract TestWho {
+  //     function Whosent () public returns (address sender) {
+  //         sender = msg.sender;
+  //     }
+  // }
+
+  // version 1.0.1
+  contract TransferWhaleNFT {
+
+      constructor () payable {}
+
+      enum TradeStatus {
+          STATUS_POST, STATUS_COMPLETE, STATUS_ERROR
+      }
+
+      struct NFTProduct {
+          address contractAddr;
+          uint256 tokenId;
+      }
+
+      struct TradeRoom {
+          NFTProduct nftProduct;
+          uint256 price;
+          address payable sellerAddr;
+          TradeStatus tradeStatus;
+      }
+
+      mapping(uint => TradeRoom) rooms;
+      uint roomLen = 0;
+
+      event SellPosted (address indexed sellerAddress, uint256 price, uint256 roomNumber);
+
+      event TransferSuccess (address indexed seller, address indexed buyer, uint256 price, uint256 roomNumber);
+
+      // 판매등록: price 단위는 wei = ether * 10^18
+      function sell(address _nftContract, uint256 _tokenId, uint256 _price) public returns (uint roomNum) {
+          // approve 되었는지 확인
+          require (ERC721(_nftContract).getApproved(_tokenId) == address(this), "TransferWhaleNFT: token is not approved");
+
+          rooms[roomLen] = TradeRoom({
+              nftProduct: NFTProduct({
+                  contractAddr: _nftContract,
+                  tokenId: _tokenId
+              }),
+              price: _price,
+              sellerAddr: payable(msg.sender),
+              tradeStatus: TradeStatus.STATUS_POST
+              // buyerAddr: payable(_ownerAddr) // will change
+          });
+          roomNum = roomLen;
+          roomLen = roomLen + 1;
+
+          emit SellPosted(msg.sender, _price, roomNum);
+
+          // owner address로 approve (컨트랙트가 같은 페이지에 없을 때)
+          // (bool success, bytes memory data) = _nftContract.call {value: 1000} (
+          //     abi.encodeWithSignature("approve(address, uint256)", _ownerAddr, _tokenId)
+          // );
+      }
+
+      // function Test (address _nftContract) public returns (address sender) {
+      //     sender = TestWho(_nftContract).Whosent();
+      // }
+
+      // 문제점 예상: 중간에 판매자가 임의로 approve를 변경했을 때?
+      function buy(uint256 _roomNumber)
+          public
+          payable
+      {
+          uint256 price = rooms[_roomNumber].price;
+          uint256 tokenId = rooms[_roomNumber].nftProduct.tokenId;
+          require(
+              msg.value == price,
+              "TransferWhaleNFT: Please submit the asking price in order to complete the purchase"
+          );
+
+          // 판매자에게 송금
+          rooms[_roomNumber].sellerAddr.transfer(msg.value);
+          // 구매자에게 nft양도
+          ERC721(rooms[_roomNumber].nftProduct.contractAddr).transferFrom(rooms[_roomNumber].sellerAddr, msg.sender, tokenId);
+
+          // idToMarketItem[itemId].owner = payable(msg.sender);
+          rooms[_roomNumber].tradeStatus = TradeStatus.STATUS_COMPLETE;
+          // _itemsSold.increment();
+          // 수수료?
+          // payable(owner).transfer(listingPrice);
+          emit TransferSuccess (rooms[_roomNumber].sellerAddr, msg.sender, price, _roomNumber);
+      }
+
+      // 개선할 점: 서버에 정보를 줄 수 있는 함수 생성
+      // return(status, nftcontract, tokenId, price)
+      function roomInfo(uint256 _roomNumber) public returns (TradeStatus, address, uint256, uint256) {
+          return(rooms[_roomNumber].tradeStatus, rooms[_roomNumber].nftProduct.contractAddr, rooms[_roomNumber].nftProduct.tokenId, rooms[_roomNumber].price);
+      }
+  }
+  ```
