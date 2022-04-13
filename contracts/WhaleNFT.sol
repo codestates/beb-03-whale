@@ -74,6 +74,7 @@ contract TransferWhaleNFT {
     event TransferSuccess (address indexed seller, address indexed buyer, uint256 price, uint256 roomNumber);
 
     // 판매등록: price 단위는 wei = ether * 10^18
+    // onlyowner? 
     function sell(address _nftContract, uint256 _tokenId, uint256 _price) public returns (uint roomNum) {
         // approve 되었는지 확인
         require (ERC721(_nftContract).getApproved(_tokenId) == address(this), "TransferWhaleNFT: token is not approved");
@@ -132,7 +133,10 @@ contract TransferWhaleNFT {
 
     // 개선할 점: 서버에 정보를 줄 수 있는 함수 생성
     // return(status, nftcontract, tokenId, price)
-    function roomInfo(uint256 _roomNumber) public returns (TradeStatus, address, uint256, uint256) {
+
+    // roomnumber가 초과되면 revert
+    function roomInfo(uint256 _roomNumber) public view returns (TradeStatus, address, uint256, uint256) {
+        require(_roomNumber < roomLen, "TransferWhaleNFT: Invalid room number");
         return(rooms[_roomNumber].tradeStatus, rooms[_roomNumber].nftProduct.contractAddr, rooms[_roomNumber].nftProduct.tokenId, rooms[_roomNumber].price);
     }
 }
