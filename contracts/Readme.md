@@ -11,7 +11,13 @@ https://ropsten.etherscan.io/address/0x6d842606f7db5557d2875e648fe6383e785472a4
 TransferWhaleNFT (테스트중)
 https://ropsten.etherscan.io/address/0x7fbd55b82f96ff934d5c5f360e3f4423ab1d3d55
 
+/-
+현재 배포중인 컨트랙트
+
 TransferWhaleNFT 1.0.1
 https://ropsten.etherscan.io/address/0xce82f91dbc157f2f1bdc467c1bafe97aafc1f85c
+
+WhlaeNFT 1.0.1 (mintNFTMyself 추가)
+https://ropsten.etherscan.io/address/0x9fc8ae86546363821ee4908ee9a309a9484062d5
 
 개선할점: 판매 등록 취소
