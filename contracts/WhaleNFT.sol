@@ -60,10 +60,10 @@ contract TransferWhaleNFT is Ownable {
 
     event SellPosted (address indexed sellerAddress, uint256 price, uint256 roomNumber);
 
-    event TransferConfirmed (address indexed seller, address indexed buyer, uint256 price, uint256 roomNumber);
+    event TransferSuccess (address indexed seller, address indexed buyer, uint256 price, uint256 roomNumber);
 
     // 판매등록: price 단위는 wei = ether * 10^18
-    function Sell(address _nftContract, uint256 _tokenId, uint256 _price) public returns (uint roomNum) {
+    function sell(address _nftContract, uint256 _tokenId, uint256 _price) public returns (uint roomNum) {
         // approve 되었는지 확인
         require (ERC721(_nftContract).getApproved(_tokenId) == address(this), "TransferWhaleNFT: token is not approved");
 
@@ -94,7 +94,7 @@ contract TransferWhaleNFT is Ownable {
 
 
     // 문제점 예상: 중간에 판매자가 임의로 approve를 변경했을 때?
-    function Buy(uint256 _roomNumber)
+    function buy(uint256 _roomNumber)
         public
         payable
     {
@@ -115,13 +115,13 @@ contract TransferWhaleNFT is Ownable {
         // _itemsSold.increment();
         // 수수료?
         // payable(owner).transfer(listingPrice);
-        emit TransferConfirmed (rooms[_roomNumber].sellerAddr, msg.sender, price, _roomNumber);
+        emit TransferSuccess (rooms[_roomNumber].sellerAddr, msg.sender, price, _roomNumber);
     }
 
 
     // 개선할 점: 서버에 정보를 줄 수 있는 함수 생성
     // return(status, nftcontract, tokenId, price)
-    function RoomInfo(uint256 _roomNumber) public returns (TradeStatus, address, uint256, uint256) {
+    function roomInfo(uint256 _roomNumber) public returns (TradeStatus, address, uint256, uint256) {
         return(rooms[_roomNumber].tradeStatus, rooms[_roomNumber].nftProduct.contractAddr, rooms[_roomNumber].nftProduct.tokenId, rooms[_roomNumber].price);
     }
 }
