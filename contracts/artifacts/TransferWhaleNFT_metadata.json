@@ -16,25 +16,6 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "previousOwner",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "OwnershipTransferred",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
 						"name": "sellerAddress",
 						"type": "address"
 					},
@@ -99,26 +80,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "owner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "renounceOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -180,34 +141,11 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "transferOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
 			"kind": "dev",
-			"methods": {
-				"owner()": {
-					"details": "Returns the address of the current owner."
-				},
-				"renounceOwnership()": {
-					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
-				},
-				"transferOwnership(address)": {
-					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
-				}
-			},
+			"methods": {},
 			"version": 1
 		},
 		"userdoc": {
@@ -329,11 +267,11 @@
 			]
 		},
 		"WhaleNFT.sol": {
-			"keccak256": "0x35746b16db2632eeb93ed690579d925f91ef6f3a64d9118b88bd6b01474be226",
+			"keccak256": "0x8cf55f90040d9d1b8b4e4a7fb48bcaf0ea22e829abbb2b6a32ad833e820f0a20",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://16baa89048a363d9e6c693154ceda3d2e1078365af3195425e1ca45a48d1fc3f",
-				"dweb:/ipfs/QmUicviB7f15Q7iMFYkH7vgvGDPUY53fnxk5nGPQtxSc7e"
+				"bzz-raw://08033a545b1b4fb874f4f171bf06ee1abd55538afca51e338c33452ba6f16f81",
+				"dweb:/ipfs/QmRwQYrVPFYRrv5YxyELw28TNQdPJyzmk8TWX5q42dqRgn"
 			]
 		}
 	},

@@ -32,11 +32,10 @@ contract WhaleNFT is ERC721URIStorage, Ownable {
 //     }
 // }
 
+// version 1.0.1
 contract TransferWhaleNFT {
 
-    constructor () payable {
-        _ownerAddr = msg.sender;
-    }
+    constructor () payable {}
 
     enum TradeStatus {  
         STATUS_POST, STATUS_COMPLETE, STATUS_ERROR 

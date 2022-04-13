@@ -10,3 +10,6 @@ https://ropsten.etherscan.io/address/0x6d842606f7db5557d2875e648fe6383e785472a4
 
 TransferWhaleNFT (테스트중)
 https://ropsten.etherscan.io/address/0x7fbd55b82f96ff934d5c5f360e3f4423ab1d3d55
+
+TransferWhaleNFT 1.0.1
+https://ropsten.etherscan.io/address/0xce82f91dbc157f2f1bdc467c1bafe97aafc1f85c
