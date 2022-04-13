@@ -1,16 +1,14 @@
 import { Box, Paper, Typography } from "@material-ui/core";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { styled } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useState } from "react";
-// import { NFTStorage, File } from "nft.storage";
-// import mime from "mime";
-// import fs from "fs";
-// import path from "path";
-// const NFT_STORAGE_KEY =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEMyMEIwNEZmRDhBZjBEN2JhQTE2YzUyYTY3ZTlkQzFjM0RDMTBCMDgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY0OTgxNDgzNjQ4MCwibmFtZSI6IldoYWxlIn0.LyOkwlsuhGW6_e4SZz62fS4-E9KCxHmFxGL1MPer_JM";
+import { useEffect, useState } from "react";
+import { NFTStorage, File } from "nft.storage";
+import { NFT_STORAGE_KEY } from "../config";
+import HappyKongz from "../images/HappyKongz.png";
+import { create } from "ipfs-http-client";
 
+// config 등록 후 gitignore 등록
 const MintContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
   display: "flex",
@@ -24,16 +22,71 @@ const MintContainer = styled(Paper)(({ theme }) => ({
 }));
 
 function Mint() {
-  const [photo, setPhoto] = useState(null);
-  // async function storeNFT(imagePath, name, description) {
-  //   const image = await fileFromPath(imagePath);
-  //   const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY });
-  //   return nftstorage.store({
-  //     image,
-  //     name,
-  //     description,
-  //   });
-  // }
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [fileUrl, updateFileUrl] = useState(``);
+  const [NFTurl, updateNFTurl] = useState(``);
+  const client = create("https://ipfs.infura.io:5001/api/v0");
+
+  async function onChange(e) {
+    const file = e.target.files[0];
+    try {
+      const added = await client.add(file);
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      updateFileUrl(url);
+      console.log(url);
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    }
+  }
+
+  function handleName(e) {
+    setName(e.target.value);
+  }
+  function handleDescription(e) {
+    setDescription(e.target.value);
+  }
+
+  useEffect(() => {
+    console.log(name);
+    console.log(description);
+  }, [name, description]);
+
+  async function storeNFT() {
+    let metadata = {
+      name: name,
+      description: description,
+      image: fileUrl,
+    };
+
+    metadata = JSON.stringify(metadata);
+
+    try {
+      const added = await client.add(metadata);
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      updateNFTurl(url);
+      console.log(url);
+    } catch (e) {
+      console.log(e);
+    }
+    // const metadata = await client.add({
+    //   name: name,
+    //   description: description,
+    //   image: new File([HappyKongz], photo.name, {
+    //     type: photo.type,
+    //   }),
+    // });
+    // console.log(metadata);
+    // console.log(metadata.url);
+    // try {
+    //   const added = await client.add(file);
+    //   const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+    //   updateFileUrl(url);
+    //   console.log(url);
+    // } catch (error) {
+    //   console.log("Error uploading file: ", error);
+    // }
+  }
   return (
     <MintContainer>
       <Box>
@@ -65,8 +118,9 @@ function Mint() {
             },
           }}
         >
-          <input type="file" name="file" onChange={null} />
+          <input type="file" name="file" onChange={onChange} />
           {/* <PhotoCamera color="white" onClick={null} /> */}
+          <img src={fileUrl} alt="NFTimage" />
         </Box>
         {/* Text input area */}
         <Box
@@ -86,10 +140,18 @@ function Mint() {
             id="standard-basic"
             label="Collection Name"
             variant="standard"
+            onChange={handleName}
           />
           <TextField id="standard-basic" label="Link" variant="standard" />
-          <TextField id="standard-basic" label="Explane" variant="standard" />
-          <Button variant="contained">Create</Button>
+          <TextField
+            id="standard-basic"
+            label="Explane"
+            variant="standard"
+            onChange={handleDescription}
+          />
+          <Button variant="contained" onClick={storeNFT}>
+            Create
+          </Button>
         </Box>
       </Box>
     </MintContainer>
