@@ -1,0 +1,18 @@
+{
+    "title": "nft2",
+    "type": "animal",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "doge2"
+        },
+        "description": {
+            "type": "string",
+            "description": "doge is cute, wow"
+        },
+        "image": {
+            "type": "string",
+            "description": "https://bafkreifkde4gzwpmjtsloilbeoz43e65m3bdplist2lsvqfi7hovkjytwe.ipfs.nftstorage.link/"
+        }
+    }
+}

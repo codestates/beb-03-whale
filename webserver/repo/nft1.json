@@ -1,0 +1,18 @@
+{
+    "title": "nft1",
+    "type": "animal",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "doge"
+        },
+        "description": {
+            "type": "string",
+            "description": "doge is cool, wow"
+        },
+        "image": {
+            "type": "string",
+            "description": "https://bafkreihbecelxnbh7qczs5wb2r2xpfyx2zfyzc46ecr7m3guzy6fecxslm.ipfs.nftstorage.link/"
+        }
+    }
+}
