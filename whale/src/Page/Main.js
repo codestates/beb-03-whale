@@ -6,7 +6,6 @@ import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import { dummyItems } from "../static/dummyData";
 
 // export default function TitlebarBelowImageList() {
 //   return (
@@ -59,7 +58,7 @@ const Backwhale = styled.img`
 //   letter-spacing: 2px;
 // `;
 
-function Main() {
+function Main({ nfts }) {
   return (
     <div className="Main">
       <MainContainer>
@@ -98,16 +97,16 @@ function Main() {
               },
             }}
           >
-            {dummyItems.map((item) => (
-              <ImageListItem key={item.img}>
+            {nfts.map((item) => (
+              <ImageListItem key={item.properties.image.description}>
                 <img
-                  src={`${item.img}?w=248&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  src={`${item.properties.image.description}?w=248&fit=crop&auto=format`}
+                  srcSet={`${item.properties.image.description}?w=248&fit=crop&auto=format&dpr=2 2x`}
                   alt={item.title}
                   loading="lazy"
                 />
                 <ImageListItemBar
-                  title={item.title}
+                  title={item.properties.name.description}
                   subtitle={<span> {item.itemname}</span>}
                   position="below"
                 />

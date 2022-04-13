@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Item from "../Component/Item.js";
-import { dummyItems } from "../static/dummyData";
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const ViewItems = styled.div`
@@ -25,22 +24,23 @@ const ItemCount = styled.div`
   color: gray;
 `;
 
-function Explore() {
+function Explore({ nfts }) {
+  console.log(nfts);
   return (
     <ViewItems>
-      <ItemCount> 300 Items</ItemCount>
+      <ItemCount> {nfts.length} Items</ItemCount>
 
       <ItemContainer>
-        {dummyItems &&
-          dummyItems.map((item) => {
+        {nfts &&
+          nfts.map((item) => {
             return (
               <Item
-                imgURL={item.img}
-                name={item.itemname}
-                key={item.id}
-                link="/"
+                imgURL={item.properties.image.description}
+                name={item.properties.name.description}
+                key={item.tokenId}
+                link="/buy"
                 isLoading={false}
-                price={item.price}
+                price="0.01"
               />
             );
           })}
