@@ -33,25 +33,6 @@
 				"anonymous": false,
 				"inputs": [
 					{
-						"indexed": false,
-						"internalType": "bool",
-						"name": "success",
-						"type": "bool"
-					},
-					{
-						"indexed": false,
-						"internalType": "bytes",
-						"name": "data",
-						"type": "bytes"
-					}
-				],
-				"name": "Response",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
 						"indexed": true,
 						"internalType": "address",
 						"name": "sellerAddress",
@@ -70,16 +51,42 @@
 						"type": "uint256"
 					}
 				],
-				"name": "RoomCreated",
+				"name": "SellPosted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "seller",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "buyer",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "roomNumber",
+						"type": "uint256"
+					}
+				],
+				"name": "TransferConfirmed",
 				"type": "event"
 			},
 			{
 				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_nftContract",
-						"type": "address"
-					},
 					{
 						"internalType": "uint256",
 						"name": "_roomNumber",
@@ -89,6 +96,40 @@
 				"name": "Buy",
 				"outputs": [],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_roomNumber",
+						"type": "uint256"
+					}
+				],
+				"name": "RoomInfo",
+				"outputs": [
+					{
+						"internalType": "enum TransferWhaleNFT.TradeStatus",
+						"name": "",
+						"type": "uint8"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -109,7 +150,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "createRoom",
+				"name": "Sell",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -117,7 +158,7 @@
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "payable",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -288,11 +329,11 @@
 			]
 		},
 		"WhaleNFT.sol": {
-			"keccak256": "0xfc908841cf0e104684877020e3134c70e6f06a0cb7a35cf373ee63bf3aa1bf92",
+			"keccak256": "0x57018e93f705a5a3d972789702f6033ce702fcad8b466a72c2e39ad3bdcc97d7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://74036405b3ca18a54639a6f6b35e36b2f487f985b64048bbf8746fd44593d176",
-				"dweb:/ipfs/QmZRoyLUoBw4NFbYtHBNDBuzHeh3gHpTFTXeYhvSbwnRaq"
+				"bzz-raw://94d17382dea179ccb8cbdff08cfad3a1ad83e0bc32175e7a516752f0e1858b06",
+				"dweb:/ipfs/QmcxYSxKjgqC8JJyEJ2AB54npfjoWBDabQzriebxF55DLx"
 			]
 		}
 	},
