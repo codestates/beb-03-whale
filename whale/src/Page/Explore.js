@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Item from "../Component/Item.js";
 import { dummyItems } from "../static/dummyData";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const ViewItems = styled.div`
   margin-top: 5%;
