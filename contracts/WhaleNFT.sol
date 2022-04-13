@@ -45,13 +45,16 @@ contract WhaleNFT is ERC721URIStorage, Ownable {
 //     }
 // }
 
-// version 1.0.1
+// version 1.0.3
 contract TransferWhaleNFT {
+    address private _contractOwner;
 
-    constructor () payable {}
+    constructor () payable {
+        _contractOwner = msg.sender;
+    }
 
     enum TradeStatus {  
-        STATUS_POST, STATUS_COMPLETE, STATUS_ERROR 
+        STATUS_NOT_CREATED, STATUS_POST, STATUS_COMPLETE, STATUS_ERROR 
     }
 
     struct NFTProduct {
@@ -76,6 +79,10 @@ contract TransferWhaleNFT {
     // 판매등록: price 단위는 wei = ether * 10^18
     // onlyowner? 
     function sell(address _nftContract, uint256 _tokenId, uint256 _price) public returns (uint roomNum) {
+        
+
+        // nft owner 혹은 이 컨트랙트의 owner인지 확인
+        require (msg.sender == ERC721(_nftContract).ownerOf(_tokenId) || msg.sender == _contractOwner,  "TransferWhaleNFT: token owner or contract owner can sell item");
         // approve 되었는지 확인
         require (ERC721(_nftContract).getApproved(_tokenId) == address(this), "TransferWhaleNFT: token is not approved");
 
@@ -134,9 +141,15 @@ contract TransferWhaleNFT {
     // 개선할 점: 서버에 정보를 줄 수 있는 함수 생성
     // return(status, nftcontract, tokenId, price)
 
-    // roomnumber가 초과되면 revert
+    // roomnumber가 초과되면 revert 
     function roomInfo(uint256 _roomNumber) public view returns (TradeStatus, address, uint256, uint256) {
+        // roomnumber가 초과되면 revert 
         require(_roomNumber < roomLen, "TransferWhaleNFT: Invalid room number");
         return(rooms[_roomNumber].tradeStatus, rooms[_roomNumber].nftProduct.contractAddr, rooms[_roomNumber].nftProduct.tokenId, rooms[_roomNumber].price);
+    }
+
+    // count 개수의 방이 존재함
+    function roomCount() public view returns (uint count) {
+        count = roomLen;
     }
 }
