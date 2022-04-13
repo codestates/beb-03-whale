@@ -4,6 +4,12 @@ import Button from "@mui/material/Button";
 import EthereumLogo from "../images/Ethereum_logo.png";
 import HappyKongz from "../images/HappyKongz.png";
 import TextField from "@mui/material/TextField";
+// 컨트랙트 실행 정보
+import transferABI from "../abi/TransferWhaleNFT.json";
+import nftABI from "../abi/WhaleNFT.json";
+const transferWhaleNFTAddress = "0xCe82f91dbC157F2f1bDC467c1BAfe97aAfc1F85c";
+const whaleNFTAddress = "0x9fC8aE86546363821EE4908Ee9A309A9484062D5";
+const Contract = require("web3-eth-contract");
 
 const SellContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -16,6 +22,21 @@ const SellContainer = styled(Paper)(({ theme }) => ({
   left: "10%",
   padding: "2%",
 }));
+
+async function contractRoomInfo() {
+  try {
+    Contract.setProvider(
+      "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
+    ); // infura
+    const contract = new Contract(transferABI, transferWhaleNFTAddress);
+    const result = await contract.methods.roomInfo(0).call();
+    console.log(result);
+    return result;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}
 
 function Sell() {
   return (
@@ -130,7 +151,9 @@ function Sell() {
                 />
               </Box>
             </Box>
-            <Button variant="contained">Sell</Button>
+            <Button variant="contained" onClick={contractRoomInfo}>
+              Sell
+            </Button>
           </Box>
           <Typography variant="h6" align="center">
             This is just sample.<br></br>
