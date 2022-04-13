@@ -32,8 +32,7 @@ contract WhaleNFT is ERC721URIStorage, Ownable {
 //     }
 // }
 
-contract TransferWhaleNFT is Ownable {
-    address private _ownerAddr;
+contract TransferWhaleNFT {
 
     constructor () payable {
         _ownerAddr = msg.sender;
