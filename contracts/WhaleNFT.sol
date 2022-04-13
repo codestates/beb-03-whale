@@ -26,18 +26,16 @@ contract WhaleNFT is ERC721URIStorage, Ownable {
     }
 }
 
-contract TestWho {
-    function Whosent () public returns (address sender) {
-        sender = msg.sender;
-    }
-}
+// contract TestWho {
+//     function Whosent () public returns (address sender) {
+//         sender = msg.sender;
+//     }
+// }
 
-contract TransferWhaleNFT is Ownable {
-    address private _ownerAddr;
+// version 1.0.1
+contract TransferWhaleNFT {
 
-    constructor () payable {
-        _ownerAddr = msg.sender;
-    }
+    constructor () payable {}
 
     enum TradeStatus {  
         STATUS_POST, STATUS_COMPLETE, STATUS_ERROR 
@@ -53,18 +51,17 @@ contract TransferWhaleNFT is Ownable {
         uint256 price;
         address payable sellerAddr;
         TradeStatus tradeStatus;
-        // address payable buyerAddr;
     }
 
     mapping(uint => TradeRoom) rooms;
     uint roomLen = 0;
 
-    event RoomCreated (address indexed sellerAddress, uint256 price, uint256 roomNumber);
+    event SellPosted (address indexed sellerAddress, uint256 price, uint256 roomNumber);
 
-    event Response(bool success, bytes data);
+    event TransferSuccess (address indexed seller, address indexed buyer, uint256 price, uint256 roomNumber);
 
     // 판매등록: price 단위는 wei = ether * 10^18
-    function createRoom (address _nftContract, uint256 _tokenId, uint256 _price) public payable returns (uint roomNum) {
+    function sell(address _nftContract, uint256 _tokenId, uint256 _price) public returns (uint roomNum) {
         // approve 되었는지 확인
         require (ERC721(_nftContract).getApproved(_tokenId) == address(this), "TransferWhaleNFT: token is not approved");
 
@@ -81,20 +78,21 @@ contract TransferWhaleNFT is Ownable {
         roomNum = roomLen;
         roomLen = roomLen + 1;
 
+        emit SellPosted(msg.sender, _price, roomNum);
+
         // owner address로 approve (컨트랙트가 같은 페이지에 없을 때)
         // (bool success, bytes memory data) = _nftContract.call {value: 1000} (
         //     abi.encodeWithSignature("approve(address, uint256)", _ownerAddr, _tokenId)
         // );
-
-        
-       
     }
 
-    function Test (address _nftContract) public returns (address sender) {
-        sender = TestWho(_nftContract).Whosent();
-    }
+    // function Test (address _nftContract) public returns (address sender) {
+    //     sender = TestWho(_nftContract).Whosent();
+    // }
 
-    function Buy(address _nftContract, uint256 _roomNumber)
+
+    // 문제점 예상: 중간에 판매자가 임의로 approve를 변경했을 때?
+    function buy(uint256 _roomNumber)
         public
         payable
     {
@@ -102,19 +100,26 @@ contract TransferWhaleNFT is Ownable {
         uint256 tokenId = rooms[_roomNumber].nftProduct.tokenId;
         require(
             msg.value == price,
-            "Please submit the asking price in order to complete the purchase"
+            "TransferWhaleNFT: Please submit the asking price in order to complete the purchase"
         );
 
         // 판매자에게 송금
         rooms[_roomNumber].sellerAddr.transfer(msg.value);
         // 구매자에게 nft양도
-        IERC721(_nftContract).transferFrom(address(this), msg.sender, tokenId);
+        ERC721(rooms[_roomNumber].nftProduct.contractAddr).transferFrom(rooms[_roomNumber].sellerAddr, msg.sender, tokenId);
 
         // idToMarketItem[itemId].owner = payable(msg.sender);
         rooms[_roomNumber].tradeStatus = TradeStatus.STATUS_COMPLETE;
         // _itemsSold.increment();
         // 수수료?
         // payable(owner).transfer(listingPrice);
+        emit TransferSuccess (rooms[_roomNumber].sellerAddr, msg.sender, price, _roomNumber);
     }
 
+
+    // 개선할 점: 서버에 정보를 줄 수 있는 함수 생성
+    // return(status, nftcontract, tokenId, price)
+    function roomInfo(uint256 _roomNumber) public returns (TradeStatus, address, uint256, uint256) {
+        return(rooms[_roomNumber].tradeStatus, rooms[_roomNumber].nftProduct.contractAddr, rooms[_roomNumber].nftProduct.tokenId, rooms[_roomNumber].price);
+    }
 }
