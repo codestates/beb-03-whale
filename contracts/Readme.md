@@ -4,11 +4,6 @@
 
 다음 두개의 contract를 ropsten testnet을 통해 배포중입니다.
 
-| WhaleNFT | ERC721을 상속받아 자체적으로 민팅할 수 있는 NFT컨트랙트 (WhaleNFT, WNFT) |
-| TransferWhaleNFT | ERC721기반 NFT들을 거래할 수 있는 컨트랙트 |
-
----
-
 ## 현재 배포중인 컨트랙트
 
 ### TransferWhaleNFT 1.0.1
