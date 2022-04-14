@@ -5,151 +5,39 @@ import EthereumLogo from "../images/Ethereum_logo.png";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-const BuyContainer = styled(Paper)(({ theme }) => ({
-  position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  boxShadow: 3,
-  width: "80%",
-  height: "80%",
-  top: "8%",
-  left: "10%",
-  padding: "2%",
-}));
+import BuyComponent from "../Component/buyComponent";
 
 function Buy() {
   const location = useLocation();
   const path = location.pathname;
-  const nftId = path[path.length - 1];
-  const [curItem, setCurItem] = useState([]);
-  // 임시로 맨 끝자리만 떼왔어요~
-  // useEffect(async () => {
-  //   // let r
-  // }, []);
-  return (
-    <BuyContainer>
-      <Box>
-        <Typography variant="h5">Buy</Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        {/* photo input area */}
-        <Box
-          sx={{
-            flex: "1 1",
-            borderRadius: "10%",
-            width: "50%",
-            height: "90%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            background: { EthereumLogo },
-            boxShadow: "0 5px 10px 1px lightgray",
-            "& .SellImage": {
-              width: "100%",
-              height: "100%",
-              borderRadius: "10%",
-            },
-          }}
-        >
-          <img
-            alt="sell NFT"
-            src={curItem[0].properties.image.description}
-            className="SellImage"
-          ></img>
-        </Box>
-        {/* Text input area */}
-        <Box
-          sx={{
-            margin: "1%",
-            width: "50%",
-            height: "90%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly",
-            "& .MuiButton-root": {
-              background: "8ea8db",
-            },
-            "& .MuiTypography-h5": {
-              color: "lightgray",
-            },
-          }}
-        >
-          <Box>
-            <Typography variant="h3">
-              {curItem[0].properties.name.description}
-            </Typography>
-            <Typography variant="h5">owned by 0x00..00</Typography>
-          </Box>
-          {/* 외곽선 있는 박스 */}
-          <Box
-            sx={{
-              width: "100%",
-              height: "20%",
-              border: "solid lightgray 0.1px",
-              borderRadius: "10px",
-              boxShadow: "0 5px 10px 1px lightgray",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              padding: "2%",
-            }}
-          >
-            {/* 로고+가격 컨테이너 */}
-            <Box
-              sx={{
-                display: "flex",
-                // flexDirection: "cloumn",
-                justifyContent: "space-evenly",
-              }}
-            >
-              {/* 이더리움 로고 */}
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "27px",
-                  height: "40px",
-                  "& .Eth": {
-                    width: "100%",
-                    height: "100%",
-                  },
-                }}
-              >
-                <img alt="ETh logo" src={EthereumLogo} className="Eth"></img>
-              </Box>
+  const nftId = path[path.length - 1]; // 임시로 맨 끝자리만 떼왔어요~
+  const [curItem, setCurItem] = useState(null);
+  const [flag, setFlag] = useState(false);
 
-              {/* 가격 */}
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography variant="h4" align="center">
-                  0.01
-                </Typography>
-              </Box>
-            </Box>
-            <Button variant="contained">Buy Now</Button>
-          </Box>
-          <Typography variant="h6" align="center">
-            {/* {curItem[0].properties.description.description} */}
-          </Typography>
-        </Box>
-      </Box>
-    </BuyContainer>
-  );
+  async function getOneNft(tokenId) {
+    let result = await axios.get(`http://localhost:4000/nft?token_id=${nftId}`);
+    setCurItem({ ...result.data });
+    return result.data;
+  }
+  useEffect(() => {
+    // console.log(getOneNft(nftId));
+    getOneNft(nftId);
+    // setCurItem(resultData);
+  }, []);
+
+  useEffect(() => {
+    console.log(curItem);
+  }, [curItem, flag]);
+
+  function isNull() {
+    console.log(curItem);
+    if (curItem === null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  return <Box>{isNull ? <Box></Box> : <BuyComponent curItem={curItem} />}</Box>;
 }
 
 export default Buy;

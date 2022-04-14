@@ -28,7 +28,6 @@ function Explore({ nfts, setItem }) {
   function handleClick(e) {
     console.log(e.target);
   }
-  console.log(nfts);
   return (
     <ViewItems>
       <ItemCount> {nfts.length} Items</ItemCount>

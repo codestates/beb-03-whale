@@ -122,15 +122,14 @@ const Input = styled.input`
   }
 `;
 
-const Header = ({ children, setAddress }) => {
+const Header = ({ children }) => {
   // const { active, account, library, connector, activate, deactivate } =
   //   useWeb3React();
-  const { activate, account } = useWeb3React();
+  const { activate } = useWeb3React();
 
   async function connect() {
     try {
       await activate(injected);
-      setAddress(account);
     } catch (e) {
       console.log(e);
     }
