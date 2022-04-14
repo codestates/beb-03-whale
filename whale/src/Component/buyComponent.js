@@ -2,9 +2,9 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import Button from "@mui/material/Button";
 import EthereumLogo from "../images/Ethereum_logo.png";
-import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import transferABI from "../abi/TransferWhaleNFT.json";
+import address from "../abi/Address";
+const Contract = require("web3-eth-contract");
 
 const BuyComponent = ({ curItem }) => {
   const BuyContainer = styled(Paper)(({ theme }) => ({
@@ -18,6 +18,49 @@ const BuyComponent = ({ curItem }) => {
     left: "10%",
     padding: "2%",
   }));
+  async function buy() {
+    // buy
+    try {
+      console.log("buy process start");
+      Contract.setProvider(
+        "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
+      ); // infura
+      window.contract = new Contract(
+        transferABI,
+        address.transferWhaleNFTAddress
+      );
+      const transactionParameters = {
+        to: address.transferWhaleNFTAddress, // Required except during contract publications.
+        from: window.ethereum.selectedAddress, // must match user's active address.
+        data: window.contract.methods
+          .buy(curItem[0].room_number) // 미완성
+          .encodeABI(), //make call to NFT smart contract
+      };
+      const txHash = await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [transactionParameters],
+      });
+
+      // 서버에 (txHash, nftContract주소, tokenId ,원하는가격) 을 post
+      console.log(
+        "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
+          txHash
+      );
+      return {
+        success: true,
+        status:
+          "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
+          txHash,
+      };
+    } catch (error) {
+      console.log("😥 Something went wrong: " + error.message);
+      return {
+        success: false,
+        status: "😥 Something went wrong: " + error.message,
+      };
+    }
+  }
+
   return (
     <BuyContainer>
       <Box>
@@ -130,7 +173,9 @@ const BuyComponent = ({ curItem }) => {
                 </Typography>
               </Box>
             </Box>
-            <Button variant="contained">Buy Now</Button>
+            <Button variant="contained" onClick={buy}>
+              Buy Now
+            </Button>
           </Box>
           <Typography variant="h6" align="center">
             {curItem[0].description}
