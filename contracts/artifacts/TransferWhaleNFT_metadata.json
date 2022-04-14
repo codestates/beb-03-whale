@@ -80,6 +80,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "roomCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "count",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -267,11 +280,11 @@
 			]
 		},
 		"WhaleNFT.sol": {
-			"keccak256": "0x185269f1bdaf466a284dd85571c8f570190dcbfde18e14bb17231b7f393f3ece",
+			"keccak256": "0xe812a13b05a33ed90f8ce3355d8fc5b6f4c4a2367955fa726a9fcc70304a70e7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://47a0e41088b42c50ae48692249ae69c9831010c2dc83f8e2092c1d4c8537238a",
-				"dweb:/ipfs/QmdKYyhiUoZZJWoQ2hHkZ5qAMiQmeatL9TMUZDp3jjwJVe"
+				"bzz-raw://736ca034553c7e10bd9275b129c0dbf46e342e57afa60e75d73fc16f63333882",
+				"dweb:/ipfs/QmexfR3NoV2vHnjbkhSP3eFRawPMpRsBYyTURRSqF5ghnA"
 			]
 		}
 	},
