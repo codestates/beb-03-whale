@@ -44,7 +44,7 @@ function App() {
           ></Route>
           <Route path="/mint" element={<Mint />}></Route>
           <Route path="/explore" element={<Explore nfts={nfts} />}></Route>
-          <Route path="/sell" element={<Sell />}></Route>
+          <Route path="/sell/:index" element={<Sell />}></Route>
           <Route path="/buy/:index" element={<Buy nfts={nfts} />}></Route>
         </Routes>
       </BrowserRouter>
