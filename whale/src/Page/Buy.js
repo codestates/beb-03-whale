@@ -6,7 +6,7 @@ import BuyComponent from "../Component/buyComponent";
 
 function Buy() {
   const location = useLocation();
-  const path = location.pathname;
+  const path = location.pathname.split("/");
   const nftId = path[path.length - 1]; // 임시로 맨 끝자리만 떼왔어요~
   const [curItem, setCurItem] = useState(null);
 
@@ -15,8 +15,10 @@ function Buy() {
     setCurItem([...result.data]);
     return result.data;
   }
+
   useEffect(() => {
     getOneNft(nftId);
+    console.log(path);
   }, []);
 
   useEffect(() => {
