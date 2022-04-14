@@ -4,16 +4,16 @@ import Button from "@mui/material/Button";
 import EthereumLogo from "../images/Ethereum_logo.png";
 import HappyKongz from "../images/HappyKongz.png";
 import TextField from "@mui/material/TextField";
+import { useEffect, useState } from "react";
 // 컨트랙트 실행 정보
 import transferABI from "../abi/TransferWhaleNFT.json";
 import nftABI from "../abi/WhaleNFT.json";
-import transferWhaleNFTAddress from "../abi/Address";
-import whaleNFTAddress from "../abi/Address";
+import address from "../abi/Address";
 
 const Contract = require("web3-eth-contract");
 
 //for test
-const myTokenId = 1;
+const myTokenId = 6;
 
 const SellContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -44,42 +44,95 @@ async function contractRoomInfo() {
 }
 */
 
-async function sell() {
-  // approve
-  try {
-    Contract.setProvider(
-      "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
-    ); // infura
-    const contract = new Contract(nftABI, whaleNFTAddress);
-    const transactionParameters = {
-      to: whaleNFTAddress, // Required except during contract publications.
-      from: window.ethereum.selectedAddress, // must match user's active address.
-      data: window.contract.methods
-        .approve(transferWhaleNFTAddress)
-        .encodeABI(), //make call to NFT smart contract
-    };
-    const txHash = await window.ethereum.request({
-      mehtod: "eth_sendTransaction",
-      params: [transactionParameters],
-    });
-
-    // 서버에 (txHash, nftContract주소, tokenId ,원하는가격) 을 post
-
-    return {
-      success: true,
-      status:
-        "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
-        txHash,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      status: "😥 Something went wrong: " + error.message,
-    };
-  }
-}
-
 function Sell() {
+  const [price, setPrice] = useState("");
+
+  function handlePrice(e) {
+    setPrice(e.target.value);
+    console.log(price);
+  }
+  async function approve() {
+    // approve
+    try {
+      console.log("approve process start");
+      Contract.setProvider(
+        "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
+      ); // infura
+      window.contract = new Contract(nftABI, address.whaleNFTAddress);
+      const transactionParameters = {
+        to: address.whaleNFTAddress, // Required except during contract publications.
+        from: window.ethereum.selectedAddress, // must match user's active address.
+        data: window.contract.methods
+          .approve(address.transferWhaleNFTAddress, myTokenId)
+          .encodeABI(), //make call to NFT smart contract
+      };
+      const txHash = await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [transactionParameters],
+      });
+
+      // 서버에 (txHash, nftContract주소, tokenId ,원하는가격) 을 post
+      console.log(
+        "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
+          txHash
+      );
+      return {
+        success: true,
+        status:
+          "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
+          txHash,
+      };
+    } catch (error) {
+      console.log("😥 Something went wrong: " + error.message);
+      return {
+        success: false,
+        status: "😥 Something went wrong: " + error.message,
+      };
+    }
+  }
+
+  async function sell() {
+    // sell
+    try {
+      console.log("sell process start");
+      Contract.setProvider(
+        "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
+      ); // infura
+      window.contract = new Contract(
+        transferABI,
+        address.transferWhaleNFTAddress
+      );
+      const transactionParameters = {
+        to: address.transferWhaleNFTAddress, // Required except during contract publications.
+        from: window.ethereum.selectedAddress, // must match user's active address.
+        data: window.contract.methods
+          .sell(address.whaleNFTAddress, myTokenId, price) // 미완성
+          .encodeABI(), //make call to NFT smart contract
+      };
+      const txHash = await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [transactionParameters],
+      });
+
+      // 서버에 (txHash, nftContract주소, tokenId ,원하는가격) 을 post
+      console.log(
+        "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
+          txHash
+      );
+      return {
+        success: true,
+        status:
+          "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
+          txHash,
+      };
+    } catch (error) {
+      console.log("😥 Something went wrong: " + error.message);
+      return {
+        success: false,
+        status: "😥 Something went wrong: " + error.message,
+      };
+    }
+  }
   return (
     <SellContainer>
       <Box>
@@ -189,12 +242,24 @@ function Sell() {
                   id="standard-basic"
                   label="Price"
                   variant="standard"
+                  onChange={handlePrice}
                 />
               </Box>
             </Box>
-            <Button variant="contained" onClick={sell}>
-              Sell
-            </Button>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Button variant="contained" onClick={approve}>
+                Approve
+              </Button>
+              <Button variant="contained" onClick={sell}>
+                Sell
+              </Button>
+            </Box>
           </Box>
           <Typography variant="h6" align="center">
             This is just sample.<br></br>
