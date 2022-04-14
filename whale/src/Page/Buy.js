@@ -5,6 +5,7 @@ import EthereumLogo from "../images/Ethereum_logo.png";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import LoadingGif from "../images/Loading_icon.gif";
 
 const BuyContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -22,7 +23,7 @@ function Buy() {
   const location = useLocation();
   const path = location.pathname;
   const nftId = path[path.length - 1];
-  const [curItem, setCurItem] = useState([]);
+  const [curItem, setCurItem] = useState(null);
   // 임시로 맨 끝자리만 떼왔어요~
 
   async function getOneNft(tokenId) {
@@ -35,15 +36,6 @@ function Buy() {
   useEffect(() => {
     console.log(curItem);
   }, [curItem]);
-  // {
-  // 	"token_id" : "FILL_ME",
-  // 	"owner" : "FILL_ME",
-  // 	"name" : "FILL_ME",
-  // 	"description" : "FILL_ME",
-  // 	"image_link" : "FILL_ME",
-  // 	"price" : "FILL_ME",
-  // 	"room_number" : "FILL_ME"
-  // },
   return (
     <BuyContainer>
       <Box>

@@ -1,11 +1,9 @@
-import { Box, Paper, Grid } from "@material-ui/core";
+import { Box, Paper } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import Profile from "../Component/profile";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-
-// TODO : scroll
 
 const MypageContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
