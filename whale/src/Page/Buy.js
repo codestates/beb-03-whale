@@ -24,9 +24,26 @@ function Buy() {
   const nftId = path[path.length - 1];
   const [curItem, setCurItem] = useState([]);
   // 임시로 맨 끝자리만 떼왔어요~
-  // useEffect(async () => {
-  //   // let r
-  // }, []);
+
+  async function getOneNft(tokenId) {
+    let result = await axios.get(`http://localhost:4000/nft?token_id=${nftId}`);
+    setCurItem(result.data);
+  }
+  useEffect(() => {
+    getOneNft(nftId);
+  }, []);
+  useEffect(() => {
+    console.log(curItem);
+  }, [curItem]);
+  // {
+  // 	"token_id" : "FILL_ME",
+  // 	"owner" : "FILL_ME",
+  // 	"name" : "FILL_ME",
+  // 	"description" : "FILL_ME",
+  // 	"image_link" : "FILL_ME",
+  // 	"price" : "FILL_ME",
+  // 	"room_number" : "FILL_ME"
+  // },
   return (
     <BuyContainer>
       <Box>
@@ -61,7 +78,7 @@ function Buy() {
         >
           <img
             alt="sell NFT"
-            src={curItem[0].properties.image.description}
+            src={curItem[0].image_link}
             className="SellImage"
           ></img>
         </Box>
@@ -83,10 +100,8 @@ function Buy() {
           }}
         >
           <Box>
-            <Typography variant="h3">
-              {curItem[0].properties.name.description}
-            </Typography>
-            <Typography variant="h5">owned by 0x00..00</Typography>
+            <Typography variant="h3">{curItem[0].name}</Typography>
+            <Typography variant="h5">owned by {curItem[0].owner}</Typography>
           </Box>
           {/* 외곽선 있는 박스 */}
           <Box
@@ -137,14 +152,14 @@ function Buy() {
                 }}
               >
                 <Typography variant="h4" align="center">
-                  0.01
+                  {curItem[0].price}
                 </Typography>
               </Box>
             </Box>
             <Button variant="contained">Buy Now</Button>
           </Box>
           <Typography variant="h6" align="center">
-            {/* {curItem[0].properties.description.description} */}
+            {curItem[0].description}
           </Typography>
         </Box>
       </Box>

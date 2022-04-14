@@ -1,10 +1,9 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import CardMedia from "@material-ui/core/CardMedia";
-import HappyKongz from "../images/HappyKongz.png";
 import { Typography } from "@material-ui/core";
 
-const CollectionContainer = () => {
+const CollectionContainer = ({ item }) => {
   function clickEvent() {
     console.log("cliked!");
   }
@@ -28,8 +27,8 @@ const CollectionContainer = () => {
       <CardMedia
         component="img"
         height="350"
-        image={HappyKongz}
-        alt="happy kongz"
+        image={item.image_link}
+        alt="MyNfts"
       />
       <Typography variant="h4">Happy Kongz</Typography>
       <Typography variant="body1">This is sample </Typography>

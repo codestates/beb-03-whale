@@ -1,7 +1,9 @@
 import { Box, Paper, Grid } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
-import CollectionContainer from "../Component/collectionContainer";
 import Profile from "../Component/profile";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import ImageListItemBar from "@mui/material/ImageListItemBar";
 
 // TODO : scroll
 
@@ -13,13 +15,8 @@ const MypageContainer = styled(Paper)(({ theme }) => ({
   left: 0,
 }));
 
-const Item = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
-function MyPage() {
+function MyPage({ mypageNfts }) {
+  // console.log(mypageNfts);
   return (
     <MypageContainer>
       {/* 맨 뒷 배경 */}
@@ -58,19 +55,35 @@ function MyPage() {
               left: "10%",
             }}
           >
-            <Grid
-              container
-              spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
+            <ImageList
+              sx={{
+                width: "80%",
+                height: 800,
+                "& .MuiImageListItem-img": {
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "10%",
+                  boxShadow: "0 5px 10px 1px lightgray",
+                },
+              }}
             >
-              {Array.from(Array(8)).map((_, index) => (
-                <Grid item xs={2} sm={3} md={3} key={index}>
-                  <Item>
-                    <CollectionContainer />
-                  </Item>
-                </Grid>
+              {mypageNfts.map((item) => (
+                <ImageListItem key={item.token_id}>
+                  <img
+                    src={`${item.image_link}?w=248&fit=crop&auto=format`}
+                    srcSet={`${item.image_link}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    link={`/buy/${item.token_id}`}
+                    alt={item.name}
+                    loading="lazy"
+                  />
+                  <ImageListItemBar
+                    title={item.name}
+                    subtitle={<span> {item.description}</span>}
+                    position="below"
+                  />
+                </ImageListItem>
               ))}
-            </Grid>
+            </ImageList>
           </Box>
         </Box>
       </Box>

@@ -28,7 +28,7 @@ const Profile = () => {
         }}
       />
       <Typography variant="h5">Undefined</Typography>
-      <Typography variant="body1">0x00..0</Typography>
+      <Typography variant="body1">{window.ethereum.selectedAddress}</Typography>
     </ProfileContainer>
   );
 };

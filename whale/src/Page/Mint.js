@@ -72,7 +72,7 @@ function Mint({ curAdd }) {
     try {
       console.log(nfturl);
       const abi = nftABI;
-      const address = "0x4A9084F1b75EfB80a4f481924Ee23484d6bEc32D";
+      const address = "0xe23E30b939a085a2d92f50C803F574c58912162B";
       Contract.setProvider(
         "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
       );
