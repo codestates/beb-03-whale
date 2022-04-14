@@ -1,48 +1,32 @@
-import { Box, Paper, Typography } from "@material-ui/core";
-import { styled } from "@material-ui/core/styles";
-import Button from "@mui/material/Button";
-import EthereumLogo from "../images/Ethereum_logo.png";
+import { Box } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import BuyComponent from "../Component/buyComponent";
-import Item from "../Component/Item";
 
 function Buy() {
   const location = useLocation();
-  const path = location.pathname;
+  const path = location.pathname.split("/");
   const nftId = path[path.length - 1]; // 임시로 맨 끝자리만 떼왔어요~
   const [curItem, setCurItem] = useState(null);
-  const [flag, setFlag] = useState(false);
 
   async function getOneNft(tokenId) {
     let result = await axios.get(`http://localhost:4000/nft?token_id=${nftId}`);
-    console.log(result);
-    await setCurItem({ ...result.data });
-    console.log(curItem);
-    await setFlag(true);
-    console.log(flag);
-
+    setCurItem([...result.data]);
     return result.data;
   }
+
   useEffect(() => {
-    // console.log(getOneNft(nftId));
     getOneNft(nftId);
-    // setCurItem(resultData);
+    console.log(path);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(curItem);
-  // }, [curItem, flag]);
+  useEffect(() => {
+    console.log(curItem);
+  }, [curItem]);
 
   function isNull() {
-    console.log("rerendering");
-    console.log("rerendering");
-    console.log("rerendering");
-    console.log("rerendering");
-    console.log("rerendering");
     console.log(curItem);
-
     if (curItem === null) {
       return true;
     } else {
@@ -50,8 +34,7 @@ function Buy() {
     }
   }
   return (
-    // <div>{isNull() ? <Box></Box> : <BuyComponent curItem={curItem} />}</div>
-    <div></div>
+    <Box>{isNull() ? <Box></Box> : <BuyComponent curItem={curItem} />}</Box>
   );
 }
 

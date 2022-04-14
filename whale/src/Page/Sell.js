@@ -39,7 +39,7 @@ async function contractRoomInfo() {
     return result;
   } catch (e) {
     console.log(e);
-    return e;
+    return e;l
   }
 }
 */
