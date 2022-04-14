@@ -14,9 +14,13 @@ https://ropsten.etherscan.io/address/0xce82f91dbc157f2f1bdc467c1bafe97aafc1f85c
 
 https://ropsten.etherscan.io/address/0x9fc8ae86546363821ee4908ee9a309a9484062d5
 
-### WhaleNFT test용 (도지 1 2 3)
+### test실패
 
 https://ropsten.etherscan.io/address/0x4a9084f1b75efb80a4f481924ee23484d6bec32d
+
+### WhaleNFT test용 (도지 1 2 3)
+
+https://ropsten.etherscan.io/address/0xe23e30b939a085a2d92f50c803f574c58912162b
 
 ## WhaleNFT
 
