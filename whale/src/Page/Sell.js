@@ -49,8 +49,12 @@ function Sell() {
 
   function handlePrice(e) {
     setPrice(e.target.value);
-    console.log(price);
   }
+
+  useEffect(() => {
+    console.log(price);
+  }, [price]);
+
   async function approve() {
     // approve
     try {

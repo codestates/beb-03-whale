@@ -147,7 +147,6 @@ contract TransferWhaleNFT {
         emit TransferSuccess (rooms[_roomNumber].sellerAddr, msg.sender, price, _roomNumber);
     }
 
-
     // 개선할 점: 서버에 정보를 줄 수 있는 함수 생성
     // return(status, nftcontract, tokenId, price)
 
