@@ -13,11 +13,32 @@ import axios from "axios";
 // 다른 컴포넌트들은 무조건 99보다 낮게 지정 부탁드립니다!
 function App() {
   const [nfts, setNfts] = useState([]);
+  const [curAdd, setCurAdd] = useState("");
+  const [curItem, setCurItem] = useState([]);
 
   async function getNFTs() {
     let result = await axios.get("http://localhost:4000/nft");
     setNfts(result.data);
   }
+
+  function setAddress(addr) {
+    setCurAdd(addr);
+  }
+
+  function setItem(itemNum) {
+    let selectedItem = nfts.filter((elem) => {
+      if (elem.tokenId === itemNum) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    setCurItem(selectedItem);
+  }
+
+  useEffect(() => {
+    console.log(curItem);
+  }, [curItem]);
 
   useEffect(() => {
     getNFTs();
@@ -26,14 +47,20 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        <Header setAddress={setAddress} />
         <Routes>
           <Route exact path="/" element={<Main nfts={nfts} />}></Route>
           <Route path="/mypage" element={<MyPage />}></Route>
-          <Route path="/mint" element={<Mint />}></Route>
-          <Route path="/explore" element={<Explore nfts={nfts} />}></Route>
+          <Route path="/mint" element={<Mint curAdd={curAdd} />}></Route>
+          <Route
+            path="/explore"
+            element={<Explore nfts={nfts} setItem={setItem} />}
+          ></Route>
           <Route path="/sell" element={<Sell />}></Route>
-          <Route path="/buy" element={<Buy />}></Route>
+          <Route
+            path="/buy/:index"
+            element={<Buy setItem={setItem} curItem={curItem} />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>

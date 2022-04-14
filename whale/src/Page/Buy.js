@@ -2,7 +2,9 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import Button from "@mui/material/Button";
 import EthereumLogo from "../images/Ethereum_logo.png";
-import HappyKongz from "../images/HappyKongz.png";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const BuyContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -16,7 +18,15 @@ const BuyContainer = styled(Paper)(({ theme }) => ({
   padding: "2%",
 }));
 
-function Sell() {
+function Buy() {
+  const location = useLocation();
+  const path = location.pathname;
+  const nftId = path[path.length - 1];
+  const [curItem, setCurItem] = useState([]);
+  // 임시로 맨 끝자리만 떼왔어요~
+  // useEffect(async () => {
+  //   // let r
+  // }, []);
   return (
     <BuyContainer>
       <Box>
@@ -49,7 +59,11 @@ function Sell() {
             },
           }}
         >
-          <img alt="sell NFT" src={HappyKongz} className="SellImage"></img>
+          <img
+            alt="sell NFT"
+            src={curItem[0].properties.image.description}
+            className="SellImage"
+          ></img>
         </Box>
         {/* Text input area */}
         <Box
@@ -69,7 +83,9 @@ function Sell() {
           }}
         >
           <Box>
-            <Typography variant="h3">Collection Title</Typography>
+            <Typography variant="h3">
+              {curItem[0].properties.name.description}
+            </Typography>
             <Typography variant="h5">owned by 0x00..00</Typography>
           </Box>
           {/* 외곽선 있는 박스 */}
@@ -128,12 +144,7 @@ function Sell() {
             <Button variant="contained">Buy Now</Button>
           </Box>
           <Typography variant="h6" align="center">
-            This is just sample.<br></br>
-            If you wanna sell your NFT, <br />
-            Click above button.
-            <br />
-            Enjoy ! <br />
-            ___________
+            {/* {curItem[0].properties.description.description} */}
           </Typography>
         </Box>
       </Box>
@@ -141,4 +152,4 @@ function Sell() {
   );
 }
 
-export default Sell;
+export default Buy;

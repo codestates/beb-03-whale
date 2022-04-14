@@ -3,10 +3,9 @@ import { styled } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
-import { NFTStorage, File } from "nft.storage";
-import { NFT_STORAGE_KEY } from "../config";
-import HappyKongz from "../images/HappyKongz.png";
 import { create } from "ipfs-http-client";
+import nftABI from "../abi/WhaleNFT.json";
+const Contract = require("web3-eth-contract");
 
 // config 등록 후 gitignore 등록
 const MintContainer = styled(Paper)(({ theme }) => ({
@@ -21,11 +20,10 @@ const MintContainer = styled(Paper)(({ theme }) => ({
   padding: "2%",
 }));
 
-function Mint() {
+function Mint({ curAdd }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [fileUrl, updateFileUrl] = useState(``);
-  const [NFTurl, updateNFTurl] = useState(``);
   const client = create("https://ipfs.infura.io:5001/api/v0");
 
   async function onChange(e) {
@@ -64,29 +62,49 @@ function Mint() {
     try {
       const added = await client.add(metadata);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      updateNFTurl(url);
-      console.log(url);
+      // console.log(url);
+      mintNFT(url);
     } catch (e) {
       console.log(e);
     }
-    // const metadata = await client.add({
-    //   name: name,
-    //   description: description,
-    //   image: new File([HappyKongz], photo.name, {
-    //     type: photo.type,
-    //   }),
-    // });
-    // console.log(metadata);
-    // console.log(metadata.url);
-    // try {
-    //   const added = await client.add(file);
-    //   const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-    //   updateFileUrl(url);
-    //   console.log(url);
-    // } catch (error) {
-    //   console.log("Error uploading file: ", error);
-    // }
   }
+  async function mintNFT(nfturl) {
+    try {
+      console.log(nfturl);
+      const abi = nftABI;
+      const address = "0x4A9084F1b75EfB80a4f481924Ee23484d6bEc32D";
+      Contract.setProvider(
+        "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
+      );
+      window.contract = new Contract(abi, address);
+      const transactionParameters = {
+        to: address, // Required except during contract publications.
+        from: window.ethereum.selectedAddress, // must match user's active address.
+        data: window.contract.methods.mintNFTMyself(nfturl).encodeABI(), //make call to NFT smart contract
+      };
+      //sign transaction via Metamask
+      try {
+        const txHash = await window.ethereum.request({
+          method: "eth_sendTransaction",
+          params: [transactionParameters],
+        });
+        return {
+          success: true,
+          status:
+            "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
+            txHash,
+        };
+      } catch (error) {
+        return {
+          success: false,
+          status: "😥 Something went wrong: " + error.message,
+        };
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <MintContainer>
       <Box>
@@ -116,11 +134,15 @@ function Mint() {
               color: "white",
               fontSize: "5rem",
             },
+            "& .NFTimg": {
+              width: "100%",
+              height: "100%",
+              borderRadius: "1%",
+            },
           }}
         >
           <input type="file" name="file" onChange={onChange} />
-          {/* <PhotoCamera color="white" onClick={null} /> */}
-          <img src={fileUrl} alt="NFTimage" />
+          <img src={fileUrl} alt="NFTimage" className="NFTimg" />
         </Box>
         {/* Text input area */}
         <Box
@@ -142,7 +164,6 @@ function Mint() {
             variant="standard"
             onChange={handleName}
           />
-          <TextField id="standard-basic" label="Link" variant="standard" />
           <TextField
             id="standard-basic"
             label="Explane"
