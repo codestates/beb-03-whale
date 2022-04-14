@@ -2,8 +2,6 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import Button from "@mui/material/Button";
 import EthereumLogo from "../images/Ethereum_logo.png";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import transferABI from "../abi/TransferWhaleNFT.json";
 import address from "../abi/Address";
 const Contract = require("web3-eth-contract");
