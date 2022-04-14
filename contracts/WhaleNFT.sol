@@ -45,7 +45,7 @@ contract WhaleNFT is ERC721URIStorage, Ownable {
 //     }
 // }
 
-// version 1.0.3
+// version 1.0.4
 contract TransferWhaleNFT {
     address private _contractOwner;
 
@@ -79,7 +79,17 @@ contract TransferWhaleNFT {
     // 판매등록: price 단위는 wei = ether * 10^18
     // onlyowner? 
     function sell(address _nftContract, uint256 _tokenId, uint256 _price) public returns (uint roomNum) {
-        
+
+        /* 
+        불가능한듯
+        // delegate call을 이용해 approve 받기
+        (bool success,) = _nftContract.delegatecall(
+            //abi.encodeWithSelector(ERC721.approve.selector, address(this), _tokenId)
+            //encodeWithSignature 안에 스페이스를 넣으면 안된다
+            abi.encodeWithSignature("approve(address,uint256)", address(this), _tokenId)
+        );
+        require (success == true, "TransferWhaleNFT: failed approve");
+        */
 
         // nft owner 혹은 이 컨트랙트의 owner인지 확인
         require (msg.sender == ERC721(_nftContract).ownerOf(_tokenId) || msg.sender == _contractOwner,  "TransferWhaleNFT: token owner or contract owner can sell item");
