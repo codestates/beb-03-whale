@@ -4,6 +4,7 @@ import Profile from "../Component/profile";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
+import Item from "../Component/Item.js";
 
 const MypageContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -38,7 +39,6 @@ function MyPage({ mypageNfts }) {
             width: "100%",
             height: "100%",
             background: "white",
-            overflow: "scroll",
           }}
         >
           <Box
@@ -65,22 +65,20 @@ function MyPage({ mypageNfts }) {
                 },
               }}
             >
-              {mypageNfts.map((item) => (
-                <ImageListItem key={item.token_id}>
-                  <img
-                    src={`${item.image_link}?w=248&fit=crop&auto=format`}
-                    srcSet={`${item.image_link}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    link={`/buy/${item.token_id}`}
-                    alt={item.name}
-                    loading="lazy"
-                  />
-                  <ImageListItemBar
-                    title={item.name}
-                    subtitle={<span> {item.description}</span>}
-                    position="below"
-                  />
-                </ImageListItem>
-              ))}
+              {mypageNfts &&
+                mypageNfts.map((item) => {
+                  return (
+                    <Item
+                      imgURL={item.image_link}
+                      name={item.name}
+                      key={item.token_id}
+                      link={`/sell/${item.token_id}`}
+                      isLoading={false}
+                      price={item.price}
+                      onClick={null}
+                    />
+                  );
+                })}
             </ImageList>
           </Box>
         </Box>
