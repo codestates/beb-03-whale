@@ -16,7 +16,7 @@ https://ropsten.etherscan.io/address/0x9fc8ae86546363821ee4908ee9a309a9484062d5
 
 ### WhaleNFT test용 (도지 1 2 3)
 
-https://ropsten.etherscan.io/address/0xF990c2c51cBeffb39cE18A9EE6ca2A097d1a5cd3
+https://ropsten.etherscan.io/address/0x4a9084f1b75efb80a4f481924ee23484d6bec32d
 
 ## WhaleNFT
 
