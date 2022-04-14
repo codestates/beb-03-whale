@@ -24,23 +24,35 @@ const ItemCount = styled.div`
   color: gray;
 `;
 
-function Explore({ nfts }) {
+function Explore({ nfts, setItem }) {
+  function handleClick(e) {
+    console.log(e.target);
+  }
   console.log(nfts);
   return (
     <ViewItems>
       <ItemCount> {nfts.length} Items</ItemCount>
-
+      {/* {
+		"token_id" : "FILL_ME",
+		"owner" : "FILL_ME",
+		"name" : "FILL_ME",
+		"description" : "FILL_ME",
+		"image_link" : "FILL_ME",
+		"price" : "FILL_ME",
+		"room_number" : "FILL_ME"
+	}, */}
       <ItemContainer>
         {nfts &&
           nfts.map((item) => {
             return (
               <Item
-                imgURL={item.properties.image.description}
-                name={item.properties.name.description}
-                key={item.tokenId}
-                link="/buy"
+                imgURL={item.image_link}
+                name={item.name}
+                key={item.token_id}
+                link={`/buy/${item.token_id}`}
                 isLoading={false}
-                price="0.01"
+                price={item.price}
+                onClick={handleClick}
               />
             );
           })}

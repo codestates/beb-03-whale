@@ -7,12 +7,6 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 
-// export default function TitlebarBelowImageList() {
-//   return (
-
-//   );
-// }
-
 // 배경
 const MainContainer = styled.div`
   display: flex;
@@ -26,38 +20,6 @@ const Backwhale = styled.img`
   z-index: 0;
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 5%, transparent 100%);
 `;
-// const Intro1 = styled.div`
-//   position: fixed;
-//   top: 42%;
-//   left: 1%;
-//   font-size: 50px;
-//   color: white;
-//   width: 30%;
-//   font-family: "Quicksand", sans-serif;
-//   letter-spacing: 2px;
-// `;
-// const Intro2 = styled.div`
-//   position: fixed;
-//   top: 50%;
-//   left: 5%;
-//   font-size: 50px;
-//   color: white;
-//   width: 30%;
-//   font-family: "Rajdhani";
-//   letter-spacing: 2px;
-// `;
-
-// const Intro3 = styled.div`
-//   position: fixed;
-//   top: 49%;
-//   left: 20%;
-//   font-size: 60px;
-//   color: darkslateblue;
-//   width: 30%;
-//   font-family: "Rajdhani";
-//   letter-spacing: 2px;
-// `;
-
 function Main({ nfts }) {
   return (
     <div className="Main">
@@ -69,7 +31,6 @@ function Main({ nfts }) {
             height: "100%",
             display: "flex",
             flexDirection: "column",
-            // justifyContent: "space-between",
             zIndex: "0",
             position: "fixed",
             top: "10%",
@@ -97,36 +58,31 @@ function Main({ nfts }) {
               },
             }}
           >
+            {/* {
+		"token_id" : "FILL_ME",
+		"owner" : "FILL_ME",
+		"name" : "FILL_ME",
+		"description" : "FILL_ME",
+		"image_link" : "FILL_ME",
+		"price" : "FILL_ME",
+		"room_number" : "FILL_ME"
+	}, */}
             {nfts.map((item) => (
-              <ImageListItem key={item.properties.image.description}>
+              <ImageListItem key={item.token_id}>
                 <img
-                  src={`${item.properties.image.description}?w=248&fit=crop&auto=format`}
-                  srcSet={`${item.properties.image.description}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
+                  src={`${item.image_link}?w=248&fit=crop&auto=format`}
+                  srcSet={`${item.image_link}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.name}
                   loading="lazy"
                 />
                 <ImageListItemBar
-                  title={item.properties.name.description}
-                  subtitle={<span> {item.itemname}</span>}
+                  title={item.name}
+                  subtitle={<span> {item.name}</span>}
                   position="below"
                 />
               </ImageListItem>
             ))}
           </ImageList>
-          {/* <IconButton aria-label="Arrow Left">
-            <ArrowLeft />
-          </IconButton>
-          <CollectionContainer />
-          <IconButton aria-label="Arrow right">
-            <ArrowRight />
-          </IconButton> */}
-        </Box>
-
-        <Box>
-          <Typography variant="h2">Discover collections</Typography>
-          {/* <Intro1>Discover collections</Intro1>
-          <Intro2>From Ocean, </Intro2>
-          <Intro3>With Whale</Intro3> */}
         </Box>
       </MainContainer>
     </div>
