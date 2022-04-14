@@ -4,7 +4,7 @@
   "description": "https://ropsten.etherscan.io/address/0x59cfb8dd20e63185581215bb87fda9a1bac3f044",
   "main": "index.js",
   "scripts": {
-    "test": "remixd -s /home/lim/Projects/beb-03-whale/contracts --remix-ide https://remix.ethereum.org"
+    "remixd": "remixd -s /home/lim/Projects/beb-03-whale/contracts --remix-ide https://remix.ethereum.org"
   },
   "author": "",
   "license": "ISC",

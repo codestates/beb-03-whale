@@ -14,6 +14,10 @@ https://ropsten.etherscan.io/address/0xce82f91dbc157f2f1bdc467c1bafe97aafc1f85c
 
 https://ropsten.etherscan.io/address/0x9fc8ae86546363821ee4908ee9a309a9484062d5
 
+### WhaleNFT test용 (도지 1 2 3)
+
+https://ropsten.etherscan.io/address/0xF990c2c51cBeffb39cE18A9EE6ca2A097d1a5cd3
+
 ## WhaleNFT
 
 - 기존 ERC721 컨트랙트에 mintNFT와 mintNFTMyself를 추가한 컨트랙트
