@@ -49,8 +49,12 @@ function Sell() {
 
   function handlePrice(e) {
     setPrice(e.target.value);
-    console.log(price);
   }
+
+  useEffect(() => {
+    console.log(price);
+  }, [price]);
+
   async function approve() {
     // approve
     try {
@@ -71,7 +75,7 @@ function Sell() {
         params: [transactionParameters],
       });
 
-      // 서버에 (txHash, nftContract주소, tokenId ,원하는가격) 을 post
+      // 서버에 (txHash, nftContract주소, tokenId ,원하는가격) 을 post는 일단 직접 버튼 누르기로 해결
       console.log(
         "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
           txHash
