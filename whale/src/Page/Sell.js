@@ -7,9 +7,14 @@ import TextField from "@mui/material/TextField";
 // 컨트랙트 실행 정보
 import transferABI from "../abi/TransferWhaleNFT.json";
 import nftABI from "../abi/WhaleNFT.json";
-const transferWhaleNFTAddress = "0xCe82f91dbC157F2f1bDC467c1BAfe97aAfc1F85c";
-const whaleNFTAddress = "0x9fC8aE86546363821EE4908Ee9A309A9484062D5";
+import { transferWhaleNFTAddress, whaleNFTAddress } from "../abi/Address";
+// const transferWhaleNFTAddress = "0xCe82f91dbC157F2f1bDC467c1BAfe97aAfc1F85c";
+// const whaleNFTAddress = "0xe23E30b939a085a2d92f50C803F574c58912162B";
+
 const Contract = require("web3-eth-contract");
+
+//for test
+const myTokenId = 1;
 
 const SellContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -35,6 +40,41 @@ async function contractRoomInfo() {
   } catch (e) {
     console.log(e);
     return e;
+  }
+}
+
+async function sell() {
+  // approve
+  try {
+    Contract.setProvider(
+      "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
+    ); // infura
+    const contract = new Contract(nftABI, whaleNFTAddress);
+    const transactionParameters = {
+      to: whaleNFTAddress, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.contract.methods
+        .approve(transferWhaleNFTAddress)
+        .encodeABI(), //make call to NFT smart contract
+    };
+    const txHash = await window.ethereum.request({
+      mehtod: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+
+    // 서버에 (txHash, nftContract주소, tokenId ,원하는가격) 을 post
+
+    return {
+      success: true,
+      status:
+        "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" +
+        txHash,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      status: "😥 Something went wrong: " + error.message,
+    };
   }
 }
 
