@@ -1,5 +1,9 @@
 [
-  { "inputs": [], "stateMutability": "payable", "type": "constructor" },
+  {
+    "inputs": [],
+    "stateMutability": "payable",
+    "type": "constructor"
+  },
   {
     "anonymous": false,
     "inputs": [
@@ -58,7 +62,11 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_roomNumber", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_roomNumber",
+        "type": "uint256"
+      }
     ],
     "name": "buy",
     "outputs": [],
@@ -66,8 +74,25 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "roomCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
-      { "internalType": "uint256", "name": "_roomNumber", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_roomNumber",
+        "type": "uint256"
+      }
     ],
     "name": "roomInfo",
     "outputs": [
@@ -76,22 +101,50 @@
         "name": "",
         "type": "uint8"
       },
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_nftContract", "type": "address" },
-      { "internalType": "uint256", "name": "_tokenId", "type": "uint256" },
-      { "internalType": "uint256", "name": "_price", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "_nftContract",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_price",
+        "type": "uint256"
+      }
     ],
     "name": "sell",
     "outputs": [
-      { "internalType": "uint256", "name": "roomNum", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "roomNum",
+        "type": "uint256"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "function"

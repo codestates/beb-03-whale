@@ -280,11 +280,11 @@
 			]
 		},
 		"WhaleNFT.sol": {
-			"keccak256": "0x48cbbcb13057fc4b83d2aadb1d795127024750733361070d4bc11a1280b4bbf9",
+			"keccak256": "0x9c1b80a01cc7b84f7f1d313c6e3ace377edfcba4a14bdcedb11b5c4a9a4e38f2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4f38c40da211b7a7502c9271a6c95832b210a5278c7602419dbbe8d79901e56e",
-				"dweb:/ipfs/QmV7G1dwvpZvKc4nJoVZEL9QygW4PEYAakjbVtZdPuoKCb"
+				"bzz-raw://266aa408e98d0e922ed62a62159b960914cbc686fe077f56c8c2cc7c590a2c14",
+				"dweb:/ipfs/QmP9nLDTehraq6NhCg1vFdCBkeQLiVkM5wkWbd7oXE28Fj"
 			]
 		}
 	},
