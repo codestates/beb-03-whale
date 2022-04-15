@@ -11,7 +11,8 @@ import address from "../abi/Address";
 const Contract = require("web3-eth-contract");
 
 const SellComponent = ({ curItem }) => {
-  const [price, setPrice] = useState("");
+  // const [price, setPrice] = useState("");
+  let price = "";
   const SellContainer = styled(Paper)(({ theme }) => ({
     position: "absolute",
     display: "flex",
@@ -24,12 +25,15 @@ const SellComponent = ({ curItem }) => {
     padding: "2%",
   }));
   function handlePrice(e) {
-    setPrice(e.target.value);
+    console.log("sellComponent.js: setPRice");
+    // setPrice(e.target.value);
+    price = e.target.value;
+    console.log(price);
   }
 
-  useEffect(() => {
-    console.log(price);
-  }, [price]);
+  // useEffect(() => {
+  //   console.log(price);
+  // }, [price]);
 
   async function approve() {
     // approve
