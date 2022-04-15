@@ -14,7 +14,7 @@ const ItemContainer = styled.ul`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: space-around;
 `;
 
@@ -31,15 +31,6 @@ function Explore({ nfts, setItem }) {
   return (
     <ViewItems>
       <ItemCount> {nfts.length} Items</ItemCount>
-      {/* {
-		"token_id" : "FILL_ME",
-		"owner" : "FILL_ME",
-		"name" : "FILL_ME",
-		"description" : "FILL_ME",
-		"image_link" : "FILL_ME",
-		"price" : "FILL_ME",
-		"room_number" : "FILL_ME"
-	}, */}
       <ItemContainer>
         {nfts &&
           nfts.map((item) => {

@@ -51,7 +51,7 @@ function Main({ nfts }) {
               width: "80%",
               height: 800,
               "& .MuiImageListItem-img": {
-                width: "100%",
+                width: "80%",
                 height: "100%",
                 borderRadius: "10%",
                 boxShadow: "0 5px 10px 1px lightgray",
