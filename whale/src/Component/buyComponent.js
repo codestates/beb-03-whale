@@ -29,14 +29,16 @@ const BuyComponent = ({ curItem }) => {
         transferABI,
         address.transferWhaleNFTAddress
       );
+
       const transactionParameters = {
-        value: curItem[0].price,
+        value: "0x" + parseInt(curItem[0].price).toString(16),
         to: address.transferWhaleNFTAddress, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
         data: window.contract.methods
           .buy(curItem[0].room_number) // 미완성
           .encodeABI(), //make call to NFT smart contract
       };
+      console.log(transactionParameters);
       const txHash = await window.ethereum.request({
         method: "eth_sendTransaction",
         params: [transactionParameters],
