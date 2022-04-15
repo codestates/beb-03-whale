@@ -41,7 +41,7 @@ module.exports = [
   },
   {
     token_id: "5",
-    owner: "0xa4c7bdb78a803aa046e5d9147d95cccb9cbcd0e3",
+    owner: "0xc318be0b898aed3bbfc7da5edcbbb589a32ca7d3",
     name: "Space Doge",
     description: "Test3 - This is Space Doge",
     image_link:
@@ -50,13 +50,13 @@ module.exports = [
     room_number: "4",
   },
   {
-    token_id: "5",
+    token_id: "6",
     owner: "0xc318be0b898aed3bbfc7da5edcbbb589a32ca7d3",
-    name: "Space Doge",
+    name: "Test Doge",
     description: "Test3 - This is Space Doge",
     image_link:
       "https://ipfs.infura.io/ipfs/QmRwuK1uDySjAKwY8LNGaGCF8wZs16Qxt29pVG3YRGex85",
-    price: "0",
-    room_number: "4",
+    price: "2000",
+    room_number: "0",
   },
 ];
