@@ -2,9 +2,9 @@ import { Box, Paper } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 import Profile from "../Component/profile";
 import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Item from "../Component/Item.js";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const MypageContainer = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -15,6 +15,17 @@ const MypageContainer = styled(Paper)(({ theme }) => ({
 }));
 
 function MyPage({ mypageNfts }) {
+  const [mypage, setMypage] = useState(mypageNfts);
+  async function getMyPage() {
+    let result = await axios.get(
+      `http://localhost:4000/nft?account_address=${window.ethereum.selectedAddress}`
+    );
+    setMypage(result.data);
+  }
+  useEffect(() => {
+    getMyPage();
+    console.log(mypage);
+  }, []);
   // console.log(mypageNfts);
   return (
     <MypageContainer>
@@ -65,8 +76,8 @@ function MyPage({ mypageNfts }) {
                 },
               }}
             >
-              {mypageNfts &&
-                mypageNfts.map((item) => {
+              {mypage &&
+                mypage.map((item) => {
                   return (
                     <Item
                       imgURL={item.image_link}

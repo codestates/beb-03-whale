@@ -55,18 +55,6 @@ function Explore({ nfts, setItem }) {
               />
             );
           })}
-        <Item
-          imgURL=""
-          name="Img test"
-          price="0.221"
-          link="/"
-          isLoading={true}
-        />
-        <Item imgURL="" name="Img test" price="0.1" link="/" isLoading={true} />
-        <Item imgURL="" name="Img test" price="0.1" link="/" isLoading={true} />
-        <Item imgURL="" name="Img test" price="0.1" link="/" isLoading={true} />
-        <Item imgURL="" name="Img test" price="0.1" link="/" isLoading={true} />
-        <Item imgURL="" name="Img test" price="0.1" link="/" isLoading={true} />
       </ItemContainer>
     </ViewItems>
   );

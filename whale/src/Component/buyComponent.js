@@ -30,6 +30,7 @@ const BuyComponent = ({ curItem }) => {
         address.transferWhaleNFTAddress
       );
       const transactionParameters = {
+        value: curItem[0].price,
         to: address.transferWhaleNFTAddress, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
         data: window.contract.methods

@@ -13,6 +13,7 @@ import axios from "axios";
 // 다른 컴포넌트들은 무조건 99보다 낮게 지정 부탁드립니다!
 function App() {
   const [nfts, setNfts] = useState([]);
+  const [address, setAddress] = useState(window.ethereum.selectedAddress);
   const [mypageNfts, setMypageNfts] = useState([]);
 
   async function getNFTs() {
@@ -24,12 +25,17 @@ function App() {
     let result = await axios.get(
       `http://localhost:4000/nft?account_address=${window.ethereum.selectedAddress}`
     );
-    setMypageNfts(result.data);
+    setMypageNfts([...result.data]);
   }
 
   useEffect(() => {
+    setAddress(window.ethereum.selectedAddress);
     getNFTs();
+  }, []);
+
+  useEffect(() => {
     getMyPage();
+    console.log(mypageNfts);
   }, []);
 
   return (
@@ -40,7 +46,7 @@ function App() {
           <Route exact path="/" element={<Main nfts={nfts} />}></Route>
           <Route
             path="/mypage"
-            element={<MyPage mypageNfts={mypageNfts} />}
+            element={<MyPage mypageNfts={mypageNfts} getMyPage={getMyPage} />}
           ></Route>
           <Route path="/mint" element={<Mint />}></Route>
           <Route path="/explore" element={<Explore nfts={nfts} />}></Route>
