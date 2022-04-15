@@ -52,46 +52,36 @@ function MyPage({ mypageNfts }) {
             background: "white",
           }}
         >
-          <Box
+          <ImageList
             sx={{
-              flexGrow: 1,
-              position: "absolute",
               width: "80%",
-              height: "120%",
+              height: "80%",
+              display: "flex",
               justifyContent: "center",
-              top: "10%",
-              right: "10%",
-              left: "10%",
+              overflow: "auto",
+              "& .MuiImageListItem-img": {
+                width: "100%",
+                height: "100%",
+                borderRadius: "10%",
+                boxShadow: "0 5px 10px 1px lightgray",
+              },
             }}
           >
-            <ImageList
-              sx={{
-                width: "80%",
-                height: 800,
-                "& .MuiImageListItem-img": {
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "10%",
-                  boxShadow: "0 5px 10px 1px lightgray",
-                },
-              }}
-            >
-              {mypage &&
-                mypage.map((item) => {
-                  return (
-                    <Item
-                      imgURL={item.image_link}
-                      name={item.name}
-                      key={item.token_id}
-                      link={`/sell/${item.token_id}`}
-                      isLoading={false}
-                      price={item.price}
-                      onClick={null}
-                    />
-                  );
-                })}
-            </ImageList>
-          </Box>
+            {mypage &&
+              mypage.map((item) => {
+                return (
+                  <Item
+                    imgURL={item.image_link}
+                    name={item.name}
+                    key={item.token_id}
+                    link={`/sell/${item.token_id}`}
+                    isLoading={false}
+                    price={item.price}
+                    onClick={null}
+                  />
+                );
+              })}
+          </ImageList>
         </Box>
       </Box>
     </MypageContainer>

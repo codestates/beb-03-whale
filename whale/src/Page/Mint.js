@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import { create } from "ipfs-http-client";
 import nftABI from "../abi/WhaleNFT.json";
+
 const Contract = require("web3-eth-contract");
 
 // config 등록 후 gitignore 등록
