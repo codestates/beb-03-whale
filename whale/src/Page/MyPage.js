@@ -36,6 +36,8 @@ function MyPage({ mypageNfts }) {
           width: "100%",
           height: "100%",
           display: "flex",
+          flexWrap: "wrap",
+
           justifyContent: "center",
         }}
       >
@@ -50,6 +52,7 @@ function MyPage({ mypageNfts }) {
             width: "100%",
             height: "100%",
             background: "white",
+            flexWrap: "wrap",
           }}
         >
           <ImageList
@@ -59,6 +62,7 @@ function MyPage({ mypageNfts }) {
               display: "flex",
               justifyContent: "center",
               overflow: "auto",
+              flexWrap: "wrap",
               "& .MuiImageListItem-img": {
                 width: "100%",
                 height: "100%",

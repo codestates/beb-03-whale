@@ -8,6 +8,11 @@ import { useEffect, useState } from "react";
 import transferABI from "../abi/TransferWhaleNFT.json";
 import nftABI from "../abi/WhaleNFT.json";
 import address from "../abi/Address";
+import Web3 from "web3";
+const web3 = new Web3(
+  Web3.givenProvider ||
+    "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
+);
 const Contract = require("web3-eth-contract");
 
 const SellComponent = ({ curItem }) => {
@@ -90,7 +95,11 @@ const SellComponent = ({ curItem }) => {
         to: address.transferWhaleNFTAddress, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
         data: window.contract.methods
-          .sell(address.whaleNFTAddress, curItem[0].token_id, price) // 미완성
+          .sell(
+            address.whaleNFTAddress,
+            curItem[0].token_id,
+            web3.utils.toWei(price)
+          ) // 미완성
           .encodeABI(), //make call to NFT smart contract
       };
       const txHash = await window.ethereum.request({
