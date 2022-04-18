@@ -11,6 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
+    "mysql": "^2.18.1",
+    "web3": "^1.7.3",
     "web3-eth-contract": "^1.7.3"
   }
 }
