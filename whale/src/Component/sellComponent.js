@@ -102,6 +102,7 @@ const SellComponent = ({ curItem }) => {
           ) // 미완성
           .encodeABI(), //make call to NFT smart contract
       };
+
       const txHash = await window.ethereum.request({
         method: "eth_sendTransaction",
         params: [transactionParameters],

@@ -3,11 +3,6 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import SellComponent from "../Component/sellComponent";
-import Web3 from "web3";
-const web3 = new Web3(
-  Web3.givenProvider ||
-    "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
-);
 
 function Sell() {
   const location = useLocation();

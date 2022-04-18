@@ -4,6 +4,12 @@ import Button from "@mui/material/Button";
 import EthereumLogo from "../images/Ethereum_logo.png";
 import transferABI from "../abi/TransferWhaleNFT.json";
 import address from "../abi/Address";
+import Web3 from "web3";
+const web3 = new Web3(
+  Web3.givenProvider ||
+    "https://ropsten.infura.io/v3/6df37bdfbb1e4dcd8db19ac839911a1b"
+);
+const BN = web3.utils.BN;
 const Contract = require("web3-eth-contract");
 
 const BuyComponent = ({ curItem }) => {
@@ -18,6 +24,7 @@ const BuyComponent = ({ curItem }) => {
     left: "10%",
     padding: "2%",
   }));
+
   async function buy() {
     // buy
     try {
@@ -29,16 +36,16 @@ const BuyComponent = ({ curItem }) => {
         transferABI,
         address.transferWhaleNFTAddress
       );
-
       const transactionParameters = {
-        value: "0x" + parseInt(curItem[0].price).toString(16),
+        value: web3.utils.toHex(
+          new BN(web3.utils.toWei(curItem[0].price.toString()))
+        ),
         to: address.transferWhaleNFTAddress, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
         data: window.contract.methods
           .buy(curItem[0].room_number) // 미완성
           .encodeABI(), //make call to NFT smart contract
       };
-      console.log(transactionParameters);
       const txHash = await window.ethereum.request({
         method: "eth_sendTransaction",
         params: [transactionParameters],
