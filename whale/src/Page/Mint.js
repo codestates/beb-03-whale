@@ -167,7 +167,7 @@ function Mint({ curAdd }) {
           />
           <TextField
             id="standard-basic"
-            label="Explane"
+            label="Explain"
             variant="standard"
             onChange={handleDescription}
           />
