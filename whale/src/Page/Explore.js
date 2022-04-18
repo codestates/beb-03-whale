@@ -33,7 +33,7 @@ function Explore({ nfts, setItem }) {
       <ItemCount> {nfts.length} Items</ItemCount>
       <ItemContainer>
         {nfts &&
-          nfts.map((item) => {
+          nfts.sort((a, b) => {return (b.price - a.price);}).map((item) => {
             return (
               <Item
                 imgURL={item.image_link}
