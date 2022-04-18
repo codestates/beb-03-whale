@@ -14,6 +14,9 @@ const transferContract = new Contract(transfer, transferAddr);
 const db = require("./db");
 const axios = require("axios");
 
+const Web3 = require('web3');
+const web3 = new Web3(rpcURL);
+
 let LastIdx = 0;
 let prevLastIdx = 0;
 
@@ -100,13 +103,13 @@ const recur = async function () {
         if (roomInfo['0'] == 1){
             let tokenId = roomInfo['2'];
             if (ahead.includes(tokenId)){
-                rooms[tokenId]['price'] = roomInfo['3'];
+                rooms[tokenId]['price'] = web3.utils.fromWei(roomInfo['3'], 'ether');
                 rooms[tokenId]['roomNum'] = i;
             }
             else {
                 ahead.push(tokenId);
                 rooms[tokenId] = {};
-                rooms[tokenId]['price'] = roomInfo['3'];
+                rooms[tokenId]['price'] = web3.utils.fromWei(roomInfo['3'], 'ether');
                 rooms[tokenId]['roomNum'] = i;
             }
         }
