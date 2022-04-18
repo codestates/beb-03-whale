@@ -57,6 +57,6 @@ module.exports = [
     image_link:
       "https://ipfs.infura.io/ipfs/QmRwuK1uDySjAKwY8LNGaGCF8wZs16Qxt29pVG3YRGex85",
     price: "2000",
-    room_number: "0",
+    room_number: "3",
   },
 ];
